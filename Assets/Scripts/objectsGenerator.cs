@@ -156,8 +156,8 @@ public class objectsGenerator : MonoBehaviour
     void Start()
     {
         inputPositions = new Coordinates[7];
-        inputData();
-        genObjects();
+        //inputData();
+        //genObjects();
     }
     void Update()
     {

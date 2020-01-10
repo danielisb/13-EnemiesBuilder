@@ -5,8 +5,8 @@ using UnityEngine;
 public class DetectTarget : MonoBehaviour{
 
     [Header("General")]
-    public GameObject soldierGO; // pega componentes do soldado
-    public Transform soldier;
+    public GameObject my_Body; // pega componentes do soldado
+    public Transform objToRayCast; // object transform que utiliza o RayCast
     public enum Collision
     {
         RayCast
@@ -34,17 +34,19 @@ public class DetectTarget : MonoBehaviour{
     [Space(10)]
     public List<Transform> VisibleEnemies = new List<Transform>();
     List<Transform> collisionList = new List<Transform>();
-    //LayerMask layerObstacles;
     float checkTimer = 0;
     public float currentDistance;
+    lookAtVehicle captGun; // aponta para script Gun_Jeep
     public bool hitDetect;
     private void Start()
     {
+        captGun = my_Body.GetComponent<lookAtVehicle>();
+
         hitDetect = false;
 
         checkTimer = 0;
-        if (!soldier) {
-            soldier = transform;
+        if (!objToRayCast) {
+            objToRayCast = transform;
         }
     }
     void Update()
@@ -77,11 +79,11 @@ public class DetectTarget : MonoBehaviour{
                 for (float y = -limitLayers + 0.5f; y <= limitLayers; y++)
                 {
                     float angleToRay = x * (LookAngle / RaysPerLayer) + ((180.0f - LookAngle) * 0.5f);
-                    Vector3 directionMultipl = (-soldier.right) + (soldier.up * y * LayersDistance);
-                    Vector3 rayDirection = Quaternion.AngleAxis(angleToRay, soldier.up) * directionMultipl;
+                    Vector3 directionMultipl = (-objToRayCast.right) + (objToRayCast.up * y * LayersDistance);
+                    Vector3 rayDirection = Quaternion.AngleAxis(angleToRay, objToRayCast.up) * directionMultipl;
                     //
                     RaycastHit hitRaycast;
-                    if (Physics.Raycast(soldier.position, rayDirection, out hitRaycast, lookDistance))
+                    if (Physics.Raycast(objToRayCast.position, rayDirection, out hitRaycast, lookDistance))
                     {
                         //Debug.Log("ENEMY TAG ----------" + enemiesTag);
                         //if (!hitRaycast.transform.IsChildOf(transform.root) && !hitRaycast.collider.isTrigger)
@@ -89,8 +91,10 @@ public class DetectTarget : MonoBehaviour{
                             if (hitRaycast.collider.gameObject.CompareTag(enemiesTag))
                             {
                                 //print("Enemy at "+hitRaycast.distance+" meters"); // distância de detecção
-                                Debug.DrawLine(soldier.position, hitRaycast.point, Color.red); // linha vermelha de detecção do inimigo
+                                Debug.DrawLine(objToRayCast.position, hitRaycast.point, Color.red); // linha vermelha de detecção do inimigo
                                 currentDistance = hitRaycast.distance;
+                                hitDetect = true;
+                                //captGun.initShoot = true;
 
                                 if (!collisionList.Contains(hitRaycast.transform)) {
                                     collisionList.Add(hitRaycast.transform);
@@ -102,7 +106,7 @@ public class DetectTarget : MonoBehaviour{
                         //}
                     } 
                     else {
-                         Debug.DrawRay(soldier.position, rayDirection * lookDistance, Color.green); // raios verdes RayCast
+                         Debug.DrawRay(objToRayCast.position, rayDirection * lookDistance, Color.green); // raios verdes RayCast
                      }
                 }
             }
