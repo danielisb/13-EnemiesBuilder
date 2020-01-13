@@ -94,7 +94,6 @@ public class DetectTarget : MonoBehaviour{
                                 Debug.DrawLine(objToRayCast.position, hitRaycast.point, Color.red); // linha vermelha de detecção do inimigo
                                 currentDistance = hitRaycast.distance;
                                 hitDetect = true;
-                                //captGun.initShoot = true;
 
                                 if (!collisionList.Contains(hitRaycast.transform)) {
                                     collisionList.Add(hitRaycast.transform);

@@ -77,15 +77,15 @@ public class vehiclesManager : MonoBehaviour
             case Shield.Hard:
                 hard_shield = true;
                 break;
-            // default:
-            //     normal_shield = false;
-            //     medium_shield = false;
-            //     hard_shield = false;
-            // break;
+            default:
+                normal_shield = false;
+                medium_shield = false;
+                hard_shield = false;
+            break;
         }
-        // Debug.Log(" manager normal_shield " + normal_shield);
-        // Debug.Log(" manager _medium_shield " + medium_shield);
-        // Debug.Log(" manager _hard_shield " + hard_shield);
+        Debug.Log(" manager normal_shield " + normal_shield);
+        Debug.Log(" manager _medium_shield " + medium_shield);
+        Debug.Log(" manager _hard_shield " + hard_shield);
     }
     int cadenceTypeShoot;
     void opTypeShoot(bool flag) // cadence Shoot
@@ -108,13 +108,9 @@ public class vehiclesManager : MonoBehaviour
     }
     void Start()
     {
-        normal_shield = false;
-        medium_shield = false;
-        hard_shield = false;
         externalControl = true;
         moveVehicle = false;
 
-        //shoot = false;
         explode = false;
 
         model = vehicleGO.GetComponent<VehicleModel>();
