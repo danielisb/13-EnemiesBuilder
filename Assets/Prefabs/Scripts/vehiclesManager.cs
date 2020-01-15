@@ -108,7 +108,7 @@ public class vehiclesManager : MonoBehaviour
     }
     void Start()
     {
-        externalControl = true;
+        externalControl = false;
         moveVehicle = false;
 
         explode = false;

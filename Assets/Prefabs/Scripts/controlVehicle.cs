@@ -6,21 +6,20 @@ using Models;
 public class controlVehicle : MonoBehaviour 
 {
 	public GameObject objsGenerator;
-	objectsGenerator _objsGenerator;
+	public GameObject trajectory;
 	public GameObject vehicle;
+	objectsGenerator _objsGenerator;
 	public bool init;
-
 	VehicleModel model;
 
-	bool initialized;
-
-	public GameObject trajectory;
+	bool initialized;	
 
 	// Use this for initialization
 	void Start ()
 	{
 		_objsGenerator = objsGenerator.GetComponent<objectsGenerator>();
 		initialized = false;
+		trajectory = _objsGenerator.objTrajectory;
 	}
 	
 	// Update is called once per frame

@@ -18,7 +18,7 @@ public class TurretControl : MonoBehaviour
     public bool activeVigilant;
     void Start()
     {
-        activeExternalControl = false;
+        activeExternalControl = true;
         activeVigilant = false;
     }
     void Update()
