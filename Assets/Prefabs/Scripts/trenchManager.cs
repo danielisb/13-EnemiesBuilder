@@ -15,14 +15,15 @@ public class trenchManager : MonoBehaviour
     public float detectionRadius; // Raio de detecção/reconhecimento
     [Range(0, 1200)]
     public float effectiveDistance; // Raio de distância Efetiva
-    public enum trenchActions // Comportamentos do veículo
+    public enum Behavior // Comportamentos do veículo
     {
-        Idle,
+        Idle,        
         Vigilant,
         Shoot,
+        Move,
     }
-    public trenchActions recognitionAction; // select recognition action
-    public new trenchActions effectiveAction; // select effective action
+    public Behavior identificationAction; // select recognition action
+    public new Behavior effectiveAction; // select effective action
     public float elevation;
     public float azimuth;
     enum typeShoot // cadence shoot
@@ -35,7 +36,7 @@ public class trenchManager : MonoBehaviour
     shootMAG gettingTypeShoot; // Acessa script shootMAG
     lookAtTrench captGunbools; // capt Shoot bool from Gun_Jeep
     DetectTarget detection; // aponta para variável com distância do inimigo no script DetectTarget
-    trenchActions currentState;
+    Behavior currentState;
     int cadenceTypeShoot;
     void opTypeShoot(bool flag) // cadence Shoot
     {
@@ -56,7 +57,7 @@ public class trenchManager : MonoBehaviour
         gettingTypeShoot = particleSystem.GetComponent<shootMAG>();
         
         detection.enemiesTag = target.tag; // passa a tag do GameObject target para a string "enemiesTag" do script DetectTarget
-        currentState = trenchActions.Idle; // vehicle start in Vigilant
+        currentState = Behavior.Idle; // vehicle start in Vigilant
     }
     void Update()
     {
@@ -64,24 +65,24 @@ public class trenchManager : MonoBehaviour
 
         switch(currentState)
         {
-            case trenchActions.Idle:
+            case Behavior.Idle:
                 // .activeVigilant = false;
                 opTypeShoot(false);
                 Debug.Log("IDLE");
             break;
-            case trenchActions.Vigilant:
+            case Behavior.Vigilant:
                 // rotate turret - find enemy
                 captGunbools.activeVigilant = true;
                 opTypeShoot(false);
                 Debug.Log("VIGILANT");
             break;
-            case trenchActions.Shoot:
+            case Behavior.Shoot:
                 // shoot weapon
                 opTypeShoot(true);
                 Debug.Log("SHOOT");
             break;
             default:
-                currentState = trenchActions.Idle;
+                currentState = Behavior.Idle;
             break;
         }
     }
@@ -98,7 +99,7 @@ public class trenchManager : MonoBehaviour
             detection.currentDistance > effectiveDistance)
         {
             captGunbools.activeLookAt = true;
-            currentState = recognitionAction;
+            currentState = identificationAction;
             Debug.Log("RECOGNITION");
         }
         else
@@ -111,7 +112,7 @@ public class trenchManager : MonoBehaviour
         }
         else
         {   // back to Vigilant
-            currentState = trenchActions.Vigilant;
+            currentState = Behavior.Vigilant;
             Debug.Log("DEFAULT");
             opTypeShoot(false);
         }
