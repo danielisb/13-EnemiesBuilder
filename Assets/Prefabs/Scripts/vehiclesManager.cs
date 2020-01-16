@@ -10,10 +10,11 @@ public class vehiclesManager : MonoBehaviour
     public GameObject LookAtGO; // GameObject LookAt
     public GameObject turretControlGO; // GameObject to control Gun
     public Transform enemyTarget; // GameObject enemy
-    public Transform scape; // GameObject with coordinates to scape
+    //public Transform scape; // GameObject with coordinates to scape
     public GameObject trajectory; // path to move
-    public GameObject trigger; // test
+    //public GameObject trigger; // test
     public GameObject particleSystem; // particles of shoot
+    public GameObject objsGenerator;
 
     [Header("Settings")]
     [Range(0, 3000)]
@@ -59,6 +60,7 @@ public class vehiclesManager : MonoBehaviour
     TurretControl _TurretControl;
     vehicle_Explode gettingExplosion;
     vehicleActions currentState;
+    objectsGenerator _objsGenerator;
 
     // to manage Shield in shieldManager
     public bool normal_shield;
@@ -119,10 +121,11 @@ public class vehiclesManager : MonoBehaviour
         _TurretControl = turretControlGO.GetComponent<TurretControl>();
         gettingTypeShoot = particleSystem.GetComponent<shootMAG>();
         gettingExplosion = vehicleGO.GetComponent<vehicle_Explode>();
-        
+        _objsGenerator = objsGenerator.GetComponent<objectsGenerator>();
+
         detection.enemiesTag = enemyTarget.tag; // passa a tag do GameObject enemyTarget para a string "enemiesTag" do script DetectTarget
         currentState = vehicleActions.Vigilant; // vehicle start in Vigilant
-
+        enemyTrajectory();
         // Set trajectory to vehicle
         if (trajectory != null) 
             model.SetTrajectory(new GameObjectWrapper(trajectory));
@@ -186,7 +189,7 @@ public class vehiclesManager : MonoBehaviour
     }
     void vehicleBehavior()
     {
-        // case raycast detect something
+        // if raycast detect something
         if (!detection.hitDetect)
         {
             captGunbools.activeLookAt = false;
@@ -220,4 +223,12 @@ public class vehiclesManager : MonoBehaviour
 		model.SetDriveVelocity(20f);
 		model.Drive();
 	}
+    void enemyTrajectory()
+    {
+        if(_objsGenerator.objEnemyTrajectory != null)
+        {
+            //print("NOT NULL ----------");
+            trajectory = _objsGenerator.objEnemyTrajectory;
+        }
+    }
 }

@@ -13,6 +13,7 @@ public class objectsGenerator : MonoBehaviour
     public GameObject enemyVehicle; // armazena prefab dos veículos
     public GameObject enemiesSoldiers; // armazena prefab dos soldados
     public GameObject objTrajectory; // armazena trajectory criado na execução
+    public GameObject objEnemyTrajectory; // armazena enemyTrajectory criado na execução
     //-------------------------------
     GameObject genObject; // gameObject criado dinamicamente para instanciar prefabs nos locais predefinidos
     GameObject prefabGenerator; // armazena e instancia prefabs dinamicamente
@@ -49,9 +50,26 @@ public class objectsGenerator : MonoBehaviour
         public Coordinates[] trajectory;
     }
     Enemy[] enemies;
-    int i = 0; // indice 
+    int i = 0; // indice
+    int t = 0; // indice trajectory
     int trajectoryArray = 0; // armazena tamanho do Array vehicleTrajectory
+    int trajectoryEnemyArray = 0; // armazena tamanho do Array enemy Trajectory
     int enemiesArraySize = 0; // armazena tamanho do Array enemies
+    void Start()
+    {
+        vehicleTrajectory = new Coordinates[12];
+        enemies = new Enemy[3];
+        trajectoryArray = vehicleTrajectory.Length; // indica tamanho do Array trajectory
+        enemiesArraySize = enemies.Length; // indica os indices do Array enemies
+
+        inputData();
+        spawnTrajectory();
+        processData();
+    }
+    void Update()
+    {
+        
+    }
     void inputData() // Recebe dados de entrada
     {
         vehicleTrajectory[0].x = 159.2f;
@@ -122,58 +140,58 @@ public class objectsGenerator : MonoBehaviour
         enemies[i].weaponRange = 100f;
         enemies[i].identificationAction = Behavior.Move;
         enemies[i].effectiveAction = Behavior.Shoot;
-        enemies[i].trajectory = new Coordinates[3];
+        enemies[i].trajectory = new Coordinates[2];
         enemies[i].trajectory[0].x = 29.7f;
         enemies[i].trajectory[0].y = 1.5f;
         enemies[i].trajectory[0].z = 82.4f;
         enemies[i].trajectory[1].x = 25f;
         enemies[i].trajectory[1].y = 1.5f;
         enemies[i].trajectory[1].z = 19.6f;
-        i++;
-        enemies[i].type = Type.MachineGun;
-        enemies[i].position.x = 64f;
-        enemies[i].position.y = 0f;
-        enemies[i].position.z = -76f;
-        enemies[i].rotation.x = 0f;
-        enemies[i].rotation.y = -57.52f;
-        enemies[i].rotation.z = 0;
-        enemies[i].identificationRange = 200f;
-        enemies[i].weaponRange = 100f;
-        enemies[i].identificationAction = Behavior.Vigilant;
-        enemies[i].effectiveAction = Behavior.Shoot;
-        i++;
-        enemies[i].type = Type.Vehicle;
-        enemies[i].position.x = -67f;
-        enemies[i].position.y = 0f;
-        enemies[i].position.z = -76f;
-        enemies[i].rotation.x = 0f;
-        enemies[i].rotation.y = 40.34f;
-        enemies[i].rotation.z = 0;
-        enemies[i].identificationRange =200f;
-        enemies[i].weaponRange = 100f;
-        enemies[i].identificationAction = Behavior.Vigilant;        
-        i++;
-        enemies[i].type = Type.Soldier;
-        enemies[i].position.x = -87f;
-        enemies[i].position.y = 0f;
-        enemies[i].position.z = 79;
-        enemies[i].rotation.x = 0f;
-        enemies[i].rotation.y = 125.45f;
-        enemies[i].rotation.z = 0;
-        enemies[i].identificationRange = 150;
-        enemies[i].weaponRange = 80f;
-        enemies[i].identificationAction = Behavior.Vigilant;        
-        i++;
-        enemies[i].type = Type.Soldier;
-        enemies[i].position.x = -137f;
-        enemies[i].position.y = 0f;
-        enemies[i].position.z = 37f;
-        enemies[i].rotation.x = 0f;
-        enemies[i].rotation.y = 29f;
-        enemies[i].rotation.z = 0;
-        enemies[i].identificationRange = 150;
-        enemies[i].weaponRange = 80f;
-        enemies[i].identificationAction = Behavior.Vigilant;        
+        // i++;
+        // enemies[i].type = Type.MachineGun;
+        // enemies[i].position.x = 64f;
+        // enemies[i].position.y = 0f;
+        // enemies[i].position.z = -76f;
+        // enemies[i].rotation.x = 0f;
+        // enemies[i].rotation.y = -57.52f;
+        // enemies[i].rotation.z = 0;
+        // enemies[i].identificationRange = 200f;
+        // enemies[i].weaponRange = 100f;
+        // enemies[i].identificationAction = Behavior.Vigilant;
+        // enemies[i].effectiveAction = Behavior.Shoot;
+        // i++;
+        // enemies[i].type = Type.Vehicle;
+        // enemies[i].position.x = -67f;
+        // enemies[i].position.y = 0f;
+        // enemies[i].position.z = -76f;
+        // enemies[i].rotation.x = 0f;
+        // enemies[i].rotation.y = 40.34f;
+        // enemies[i].rotation.z = 0;
+        // enemies[i].identificationRange =200f;
+        // enemies[i].weaponRange = 100f;
+        // enemies[i].identificationAction = Behavior.Vigilant;        
+        // i++;
+        // enemies[i].type = Type.Soldier;
+        // enemies[i].position.x = -87f;
+        // enemies[i].position.y = 0f;
+        // enemies[i].position.z = 79;
+        // enemies[i].rotation.x = 0f;
+        // enemies[i].rotation.y = 125.45f;
+        // enemies[i].rotation.z = 0;
+        // enemies[i].identificationRange = 150;
+        // enemies[i].weaponRange = 80f;
+        // enemies[i].identificationAction = Behavior.Vigilant;        
+        // i++;
+        // enemies[i].type = Type.Soldier;
+        // enemies[i].position.x = -137f;
+        // enemies[i].position.y = 0f;
+        // enemies[i].position.z = 37f;
+        // enemies[i].rotation.x = 0f;
+        // enemies[i].rotation.y = 29f;
+        // enemies[i].rotation.z = 0;
+        // enemies[i].identificationRange = 150;
+        // enemies[i].weaponRange = 80f;
+        // enemies[i].identificationAction = Behavior.Vigilant; 
     }
     void processData()
     {
@@ -210,6 +228,20 @@ public class objectsGenerator : MonoBehaviour
             settings.effectiveDistance = enemies[i].weaponRange;
             //settings.effectiveAction = enemies[i].identificationAction;
             //settings.effectiveAction = enemies[i].identificationAction;
+        spawnEnemyTrajectory(enemies[i]); //spawn enemy trajectory inside vehicleMangerv
+    }
+    void spawnEnemyTrajectory(Enemy enemy)
+    {
+        objEnemyTrajectory = new GameObject();
+        objEnemyTrajectory.name = "Enemy Trajectory";
+        objEnemyTrajectory.AddComponent<dinamicCoordinates>();
+        for(t=0; t<2; t++)
+        {
+            var childrensOBJ = new GameObject();
+                childrensOBJ.name = "Point";		
+			    childrensOBJ.transform.position = new Vector3(enemies[i].trajectory[t].x, enemies[i].trajectory[t].y, enemies[i].trajectory[t].z);
+                childrensOBJ.transform.parent = objEnemyTrajectory.transform;
+        }
     }
     void spawnTrajectory()
     {
@@ -249,21 +281,5 @@ public class objectsGenerator : MonoBehaviour
             settings.effectiveDistance = enemies[i].weaponRange;            
             //settings.identificationAction = enemies[i].identificationAction;
             //settings.effectiveAction = enemies[i].effectiveAction;
-    }
-    void Start()
-    {
-        vehicleTrajectory = new Coordinates[12];
-        enemies = new Enemy[7];
-
-        trajectoryArray = vehicleTrajectory.Length; // indica tamanho do Array trajectory
-        enemiesArraySize = enemies.Length; // indica os indices do Array enemies
-
-        inputData();
-        spawnTrajectory();
-        processData();
-    }
-    void Update()
-    {
-        
     }
 }
