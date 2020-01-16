@@ -35,7 +35,7 @@ public class lookAtTrench_x : MonoBehaviour
     {
         maxAngle = getTrenchManager.elevation;
         Vector3 look = target.transform.position - transform.position;
-        look.z = 0; // angle defined to move
+        look.z = 35; // angle defined to move
         Quaternion q = Quaternion.LookRotation(look);
         if (Quaternion.Angle (q, baseRotation) <= maxAngle)
             targetRotation = q;
@@ -43,6 +43,6 @@ public class lookAtTrench_x : MonoBehaviour
     }
     void vigilantBehavior()
     {
-        transform.Rotate(0, 50 * Time.deltaTime, 0);
+        //transform.Rotate(0, 50 * Time.deltaTime, 0);
     }
 }

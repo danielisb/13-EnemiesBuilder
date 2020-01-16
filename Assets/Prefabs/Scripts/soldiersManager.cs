@@ -25,14 +25,12 @@ public class soldiersManager : MonoBehaviour
         CrDeath,
         Vigilant,
     }
- 
     public Animations recognitionAction; // seletor de animação específica 
     public new Animations effectiveAction; // seletor de animação específica
     float startTime; // Time when the movement started
     float journeyLength; // Total distance between the markers  
     public bool externalControl; // desativa controles e habilita controle externo (STAND BY)
     //---------------------------------------------------------------------------------------------
-
     DetectTarget detection; // aponta para variável com distância do inimigo no script DetectTarget
     bool lookAtTrigger; // variável temporária de gatilho que ativa a função lookAt
     bool scapeTrigger; // variável de gatilho que ativa a função Scape
@@ -43,8 +41,7 @@ public class soldiersManager : MonoBehaviour
     public bool enemyDead; // indica morte no lifeManager;
 
     // lifeManager _lifeManger;
-
-    void Start()
+    void Awake()
     {
         // bool controls
         enemyDead = false;
@@ -62,7 +59,7 @@ public class soldiersManager : MonoBehaviour
         // settings to scape()
         startTime = Time.time; // Keep a note of the time the movement started (scape function)
         journeyLength = Vector3.Distance(soldierGO.transform.position, scape.transform.position); // Calculate the journey length
-
+        
         detection.enemiesTag = enemyTarget.tag; // passa a tag do GameObject enemyTarget para a string "enemiesTag" do script DetectTarget
     }
     void Update()
@@ -83,7 +80,7 @@ public class soldiersManager : MonoBehaviour
             scapeTrigger = false;
             speed = 0f;
             animator_Manager.state = AnimatorManager.Animations.Vigilant;
-            print("distance VECTOR3: --- "+ distance);
+            //print("distance VECTOR3: --- "+ distance);
             Behavior();
         }
         if(enemyDead == true)
@@ -105,13 +102,15 @@ public class soldiersManager : MonoBehaviour
             animator_Manager.state = AnimatorManager.Animations.Vigilant;
             //print("VIGILANT______1______");
         }
-        if(detection.currentDistance <= detectionRadius && detection.currentDistance > effectiveDistanceRay && recognitionAction == Animations.UpRun && endScape == false) // Comportamento de reconhecimento e fuga
+        if(detection.currentDistance <= detectionRadius && detection.currentDistance > effectiveDistanceRay
+        && recognitionAction == Animations.UpRun && endScape == false) // Comportamento de reconhecimento e fuga
         {
             animator_Manager.state = GetCorrectAnimations(recognitionAction); // Fuga
             scapeTrigger = true;
             //Debug.Log("RUNNING_______2_______!!!");
         }else{
-            if(detection.currentDistance <= detectionRadius && detection.currentDistance > effectiveDistanceRay && recognitionAction == Animations.UpRun && endScape == true) // Ação caso inimigo já tenha executado Scape
+            if(detection.currentDistance <= detectionRadius && detection.currentDistance > effectiveDistanceRay
+            && recognitionAction == Animations.UpRun && endScape == true) // Ação caso inimigo já tenha executado Scape
             {
                 animator_Manager.state = AnimatorManager.Animations.CrIdle;
                 lookAtTrigger = true;

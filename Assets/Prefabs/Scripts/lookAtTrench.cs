@@ -36,13 +36,13 @@ public class lookAtTrench : MonoBehaviour
     void Update()
     {   
         // Active LookAt
-        // if(activeLookAt == true)
-        //     activeLookAt_X.activeLookAt = true;
-        //     moveGUN();
+        if(activeLookAt == true)
+            activeLookAt_X.activeLookAt = true;
+            moveGUN();
         // Vigilant action
         if(activeVigilant == true)
         {
-            vigilantBehavior();
+            //vigilantBehavior();
             //activeLookAt_X.activeVigilant = true;
         }
     }

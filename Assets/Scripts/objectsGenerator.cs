@@ -62,9 +62,9 @@ public class objectsGenerator : MonoBehaviour
         trajectoryArray = vehicleTrajectory.Length; // indica tamanho do Array trajectory
         enemiesArraySize = enemies.Length; // indica os indices do Array enemies
 
-        inputData();
-        spawnTrajectory();
-        processData();
+        //inputData();
+        //spawnTrajectory();
+        //processData();
     }
     void Update()
     {

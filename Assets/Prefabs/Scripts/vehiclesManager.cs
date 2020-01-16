@@ -162,7 +162,7 @@ public class vehiclesManager : MonoBehaviour
         {
             case vehicleActions.Vigilant:
                 // rotate turret - find enemy
-                _TurretControl.activeVigilant = true;
+                //_TurretControl.activeVigilant = true;
                 Debug.Log("VIGILANT");
             break;
             case vehicleActions.Move:
