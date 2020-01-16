@@ -12,11 +12,13 @@ public class controlVehicle : MonoBehaviour
 	public bool init;
 	VehicleModel model;
 	bool initialized;	
-	void Start ()
+	void Awake ()
 	{
+		objsGenerator = GameObject.Find("ObjectsCreator");
 		_objsGenerator = objsGenerator.GetComponent<objectsGenerator>();
-		initialized = false;
+		
 		trajectory = _objsGenerator.objTrajectory;
+		initialized = false;
 	}
 	void Update () 
 	{
