@@ -228,7 +228,7 @@ public class objectsGenerator : MonoBehaviour
             settings.effectiveDistance = enemies[i].weaponRange;
             //settings.effectiveAction = enemies[i].identificationAction;
             //settings.effectiveAction = enemies[i].identificationAction;
-        spawnEnemyTrajectory(enemies[i]); //spawn enemy trajectory inside vehicleMangerv
+        spawnEnemyTrajectory(enemies[i]); //spawn enemy trajectory inside vehicleManger
     }
     void spawnEnemyTrajectory(Enemy enemy)
     {

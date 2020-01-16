@@ -121,11 +121,15 @@ public class vehiclesManager : MonoBehaviour
         _TurretControl = turretControlGO.GetComponent<TurretControl>();
         gettingTypeShoot = particleSystem.GetComponent<shootMAG>();
         gettingExplosion = vehicleGO.GetComponent<vehicle_Explode>();
+
+        objsGenerator = GameObject.Find("ObjectsCreator");
         _objsGenerator = objsGenerator.GetComponent<objectsGenerator>();
 
         detection.enemiesTag = enemyTarget.tag; // passa a tag do GameObject enemyTarget para a string "enemiesTag" do script DetectTarget
         currentState = vehicleActions.Vigilant; // vehicle start in Vigilant
+
         enemyTrajectory();
+        
         // Set trajectory to vehicle
         if (trajectory != null) 
             model.SetTrajectory(new GameObjectWrapper(trajectory));
@@ -154,7 +158,6 @@ public class vehiclesManager : MonoBehaviour
         }
 
         //Debug.Log("currentState = " + currentState);
-
         switch(currentState)
         {
             case vehicleActions.Vigilant:

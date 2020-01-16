@@ -11,18 +11,13 @@ public class controlVehicle : MonoBehaviour
 	objectsGenerator _objsGenerator;
 	public bool init;
 	VehicleModel model;
-
 	bool initialized;	
-
-	// Use this for initialization
 	void Start ()
 	{
 		_objsGenerator = objsGenerator.GetComponent<objectsGenerator>();
 		initialized = false;
 		trajectory = _objsGenerator.objTrajectory;
 	}
-	
-	// Update is called once per frame
 	void Update () 
 	{
 		init = _objsGenerator.move;
@@ -37,13 +32,9 @@ public class controlVehicle : MonoBehaviour
 			drive();
 		}
 	}
-
 	void drive()
 	{
 		model.SetDriveVelocity(20f);
 		model.Drive();
 	}
 }
-
-// SetVehiclePosition(GameObjectWrapper)
- //VehicleController.SetTrajectory(GameObjectWrapper)
