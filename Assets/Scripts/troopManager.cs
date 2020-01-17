@@ -15,14 +15,14 @@ public class troopManager : MonoBehaviour
     public soldiersManager settings2;
     public soldiersManager settings3;
     public soldiersManager settings4;
-
+    
     [Header("Settings")]
     [Range(0, 700)]
     public float detectionRadius; // Raio de detecção/reconhecimento
     [Range(0, 700)]
     public float effectiveDistance; // Raio de distância Efetiva
     public soldiersManager.Animations recognitionAction; // seletor de animação específica 
-    public new soldiersManager.Animations effectiveAction; // seletor de animação específica
+    public soldiersManager.Animations effectiveAction; // seletor de animação específica
     //---------------------------------------------------------------------------------------------
     void Awake()
     {
