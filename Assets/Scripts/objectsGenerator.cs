@@ -58,13 +58,13 @@ public class objectsGenerator : MonoBehaviour
     void Start()
     {
         vehicleTrajectory = new Coordinates[12];
-        enemies = new Enemy[3];
+        enemies = new Enemy[4];
         trajectoryArray = vehicleTrajectory.Length; // indica tamanho do Array trajectory
         enemiesArraySize = enemies.Length; // indica os indices do Array enemies
 
-        //inputData();
-        //spawnTrajectory();
-        //processData();
+        inputData();
+        spawnTrajectory();
+        processData();
     }
     void Update()
     {
@@ -147,19 +147,19 @@ public class objectsGenerator : MonoBehaviour
         enemies[i].trajectory[1].x = 25f;
         enemies[i].trajectory[1].y = 1.5f;
         enemies[i].trajectory[1].z = 19.6f;
-        // i++;
-        // enemies[i].type = Type.MachineGun;
-        // enemies[i].position.x = 64f;
-        // enemies[i].position.y = 0f;
-        // enemies[i].position.z = -76f;
-        // enemies[i].rotation.x = 0f;
-        // enemies[i].rotation.y = -57.52f;
-        // enemies[i].rotation.z = 0;
-        // enemies[i].identificationRange = 200f;
-        // enemies[i].weaponRange = 100f;
-        // enemies[i].identificationAction = Behavior.Vigilant;
-        // enemies[i].effectiveAction = Behavior.Shoot;
-        // i++;
+        i++;
+        enemies[i].type = Type.Soldier;
+        enemies[i].position.x = 64f;
+        enemies[i].position.y = 0f;
+        enemies[i].position.z = -76f;
+        enemies[i].rotation.x = 0f;
+        enemies[i].rotation.y = 358.52f;
+        enemies[i].rotation.z = 0;
+        enemies[i].identificationRange = 200f;
+        enemies[i].weaponRange = 100f;
+        enemies[i].identificationAction = Behavior.Vigilant;
+        enemies[i].effectiveAction = Behavior.Shoot;
+        i++;
         // enemies[i].type = Type.Vehicle;
         // enemies[i].position.x = -67f;
         // enemies[i].position.y = 0f;
@@ -209,11 +209,25 @@ public class objectsGenerator : MonoBehaviour
                     spawnVehicle(enemies[i]);
                     break;
                 case Type.Soldier:
-                    spawnMachineGun(enemies[i]);
+                    spawnSoldiers(enemies[i]);
                     break;
             }
             Debug.Log("enemiesArraySize: " + enemiesArraySize);
         }
+    }
+    void spawnSoldiers(Enemy enemy)
+    {
+        genObject = new GameObject();
+        genObject.transform.position = new Vector3(enemies[i].position.x, enemies[i].position.y, enemies[i].position.z);
+        prefabGenerator = Instantiate(enemiesSoldiers, genObject.transform.position, Quaternion.identity);
+        prefabGenerator.transform.eulerAngles = new Vector3(0f, enemies[i].rotation.y, 0f);
+        prefabGenerator.name = "Soldiers";
+        Destroy(genObject);
+        var settings = enemiesSoldiers.GetComponent<troopManager>();
+            settings.detectionRadius = enemies[i].identificationRange;
+            settings.effectiveDistance = enemies[i].weaponRange;            
+            //settings.identificationAction = enemies[i].identificationAction;
+            //settings.effectiveAction = enemies[i].effectiveAction;
     }
     void spawnVehicle(Enemy enemy)
     {

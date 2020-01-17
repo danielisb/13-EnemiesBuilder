@@ -20,45 +20,49 @@ public class troopManager : MonoBehaviour
     [Range(0, 700)]
     public float detectionRadius; // Raio de detecção/reconhecimento
     [Range(0, 700)]
-    public float effectiveDistanceRay; // Raio de distância Efetiva
-    public enum Animations
-    {
-        UpIdle,
-        UpRun,
-        CrIdle,
-        CrFire,
-        CrDeath,
-        Vigilant,
-    }
- 
-    public Animations recognitionAction; // seletor de animação específica 
-    public new Animations effectiveAction; // seletor de animação específica
+    public float effectiveDistance; // Raio de distância Efetiva
+    public soldiersManager.Animations recognitionAction; // seletor de animação específica 
+    public new soldiersManager.Animations effectiveAction; // seletor de animação específica
     //---------------------------------------------------------------------------------------------
-
     void Awake()
     {
         settings1 = soldierGO1.GetComponent<soldiersManager>();
-        settings1.enemyTarget = enemyTarget;
         settings2 = soldierGO2.GetComponent<soldiersManager>();
-        settings2.enemyTarget = enemyTarget;
         settings3 = soldierGO3.GetComponent<soldiersManager>();
-        settings3.enemyTarget = enemyTarget;
         settings4 = soldierGO4.GetComponent<soldiersManager>();
+
+        settings1.enemyTarget = enemyTarget;
+        settings2.enemyTarget = enemyTarget;
+        settings3.enemyTarget = enemyTarget;
         settings4.enemyTarget = enemyTarget;
 
         settings1.detectionRadius = detectionRadius;
-        settings1.effectiveDistanceRay = effectiveDistanceRay;
         settings2.detectionRadius = detectionRadius;
-        settings2.effectiveDistanceRay = effectiveDistanceRay;
         settings3.detectionRadius = detectionRadius;
-        settings3.effectiveDistanceRay = effectiveDistanceRay;
         settings4.detectionRadius = detectionRadius;
-        settings4.effectiveDistanceRay = effectiveDistanceRay;
 
-        //settings1.recognitionAction = recognitionAction;
+        settings1.effectiveDistanceRay = effectiveDistance;        
+        settings2.effectiveDistanceRay = effectiveDistance;                        
+        settings3.effectiveDistanceRay = effectiveDistance;                                
+        settings4.effectiveDistanceRay = effectiveDistance;
+
+        settings1.recognitionAction = recognitionAction;
+        settings2.recognitionAction = recognitionAction;
+        settings3.recognitionAction = recognitionAction;
+        settings4.recognitionAction = recognitionAction;
+
+        settings1.effectiveAction = effectiveAction;
+        settings2.effectiveAction = effectiveAction;
+        settings3.effectiveAction = effectiveAction;
+        settings4.effectiveAction = effectiveAction;
+
+        soldierGO1.GetComponent<soldiersManager>().enabled =true;
+        soldierGO2.GetComponent<soldiersManager>().enabled =true;
+        soldierGO3.GetComponent<soldiersManager>().enabled =true;
+        soldierGO4.GetComponent<soldiersManager>().enabled =true;
     }
     void Update()
     {
-        
+
     }
 }

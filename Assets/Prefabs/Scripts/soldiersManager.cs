@@ -32,6 +32,9 @@ public class soldiersManager : MonoBehaviour
     public bool externalControl; // desativa controles e habilita controle externo (STAND BY)
     //---------------------------------------------------------------------------------------------
     DetectTarget detection; // aponta para variável com distância do inimigo no script DetectTarget
+    DetectTarget detection2;
+    DetectTarget detection3;
+    DetectTarget detection4;
     bool lookAtTrigger; // variável temporária de gatilho que ativa a função lookAt
     bool scapeTrigger; // variável de gatilho que ativa a função Scape
     bool endScape; // Verifica se o soldado realizou o Scape()
@@ -41,7 +44,7 @@ public class soldiersManager : MonoBehaviour
     public bool enemyDead; // indica morte no lifeManager;
 
     // lifeManager _lifeManger;
-    void Awake()
+    void Start()
     {
         // bool controls
         enemyDead = false;
@@ -54,9 +57,10 @@ public class soldiersManager : MonoBehaviour
         // getting components
         animator_Manager = soldierGO.GetComponent<AnimatorManager>(); // Acive animations
         detection = soldierGO.GetComponent<DetectTarget>(); // Recebe componente RayCast
+
         //_lifeManger = soldierGO.GetComponent<lifeManager>();
 
-        // settings to scape()
+        // settings to scape
         startTime = Time.time; // Keep a note of the time the movement started (scape function)
         journeyLength = Vector3.Distance(soldierGO.transform.position, scape.transform.position); // Calculate the journey length
         
