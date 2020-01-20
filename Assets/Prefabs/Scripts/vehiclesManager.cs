@@ -21,15 +21,15 @@ public class vehiclesManager : MonoBehaviour
     public float detectionRadius; // Raio de detecção/reconhecimento
     [Range(0, 1800)]
     public float effectiveDistance; // Raio de distância Efetiva
-    public enum vehicleActions // Comportamentos do veículo
-    {
-        Vigilant,
-        Move,
-        Shoot,
-        Stop,
-    }
-    public vehicleActions recognitionAction; // select recognition action
-    public new vehicleActions effectiveAction; // select effective action
+    // public enum vehicleActions // Comportamentos do veículo
+    // {
+    //     Idle,        
+    //     Vigilant,
+    //     Shoot,
+    //     Move,
+    // }
+    public objectsGenerator.Behavior recognitionAction; // select recognition action
+    public objectsGenerator.Behavior effectiveAction; // select effective action
 
     [Range (-30,100)]
     public float velocity; // VERIFICAR SE É NECESSÁRIO
@@ -59,7 +59,7 @@ public class vehiclesManager : MonoBehaviour
     DetectTarget detection; // aponta para variável com distância do inimigo no script DetectTarget
     TurretControl _TurretControl;
     vehicle_Explode gettingExplosion;
-    vehicleActions currentState;
+    objectsGenerator.Behavior currentState;
     objectsGenerator _objsGenerator;
 
     // to manage Shield in shieldManager
@@ -126,7 +126,7 @@ public class vehiclesManager : MonoBehaviour
         _objsGenerator = objsGenerator.GetComponent<objectsGenerator>();
 
         detection.enemiesTag = enemyTarget.tag; // passa a tag do GameObject enemyTarget para a string "enemiesTag" do script DetectTarget
-        currentState = vehicleActions.Vigilant; // vehicle start in Vigilant
+        currentState = objectsGenerator.Behavior.Vigilant; // vehicle start in Vigilant
 
         enemyTrajectory();
         
@@ -160,28 +160,28 @@ public class vehiclesManager : MonoBehaviour
         //Debug.Log("currentState = " + currentState);
         switch(currentState)
         {
-            case vehicleActions.Vigilant:
+            case objectsGenerator.Behavior.Vigilant:
                 // rotate turret - find enemy
-                //_TurretControl.activeVigilant = true;
+                _TurretControl.activeVigilant = true;
                 Debug.Log("VIGILANT");
             break;
-            case vehicleActions.Move:
+            case objectsGenerator.Behavior.Move:
                 // move vehicle
                 moveVehicle = true;
                 Debug.Log("MOVE");
             break;
-            case vehicleActions.Shoot:
+            case objectsGenerator.Behavior.Shoot:
                 // shoot weapon
                 opTypeShoot(true);
                 Debug.Log("SHOOT");
             break;
-            case vehicleActions.Stop:
+            case objectsGenerator.Behavior.Idle:
                 // stop vehicle
                 moveVehicle = false;
-                Debug.Log("STOP");
+                Debug.Log("IDLE");
             break;
             default:
-                currentState = vehicleActions.Vigilant;
+                currentState = objectsGenerator.Behavior.Vigilant;
             break;
         }
         // active drive to move vehicle
@@ -216,7 +216,7 @@ public class vehiclesManager : MonoBehaviour
         }
         else
         {   // back to Vigilant
-            currentState = vehicleActions.Vigilant;
+            currentState = objectsGenerator.Behavior.Vigilant;
             Debug.Log("DEFAULT");
             opTypeShoot(false);
         }

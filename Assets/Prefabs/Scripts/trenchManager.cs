@@ -7,7 +7,7 @@ public class trenchManager : MonoBehaviour
     //------------------------------------------- CONTROLS ----------------------------------------
     [Header("Objects")]
     public GameObject trenchGO;
-    public GameObject particleSystem; // particles of shoot
+    public GameObject _particleSystem; // particles of shoot
 
     [Header("Settings")]
     public Transform target; // GameObject enemy
@@ -15,15 +15,16 @@ public class trenchManager : MonoBehaviour
     public float detectionRadius; // Raio de detecção/reconhecimento
     [Range(0, 1200)]
     public float effectiveDistance; // Raio de distância Efetiva
-    public enum Behavior // Comportamentos do veículo
-    {
-        Idle,        
-        Vigilant,
-        Shoot,
-        Move,
-    }
-    public Behavior identificationAction; // select recognition action
-    public new Behavior effectiveAction; // select effective action
+    
+    // public enum Behavior // Comportamentos do veículo
+    // {
+    //     Idle,        
+    //     Vigilant,
+    //     Shoot,
+    //     Move,
+    // }
+    public objectsGenerator.Behavior identificationAction; // select recognition action
+    public objectsGenerator.Behavior effectiveAction; // select effective action
     public float elevation;
     public float azimuth;
     enum typeShoot // cadence shoot
@@ -36,7 +37,7 @@ public class trenchManager : MonoBehaviour
     shootMAG gettingTypeShoot; // Acessa script shootMAG
     lookAtTrench captGunbools; // capt Shoot bool from Gun_Jeep
     DetectTarget detection; // aponta para variável com distância do inimigo no script DetectTarget
-    Behavior currentState;
+    objectsGenerator.Behavior currentState;
     int cadenceTypeShoot;
     void opTypeShoot(bool flag) // cadence Shoot
     {
@@ -54,10 +55,10 @@ public class trenchManager : MonoBehaviour
     {
         captGunbools = trenchGO.GetComponent<lookAtTrench>();
         detection = trenchGO.GetComponent<DetectTarget>();
-        gettingTypeShoot = particleSystem.GetComponent<shootMAG>();
+        gettingTypeShoot = _particleSystem.GetComponent<shootMAG>();
         
         detection.enemiesTag = target.tag; // passa a tag do GameObject target para a string "enemiesTag" do script DetectTarget
-        currentState = Behavior.Idle; // vehicle start in Vigilant
+        currentState = objectsGenerator.Behavior.Idle; // vehicle start in Vigilant
     }
     void Update()
     {
@@ -65,24 +66,24 @@ public class trenchManager : MonoBehaviour
 
         switch(currentState)
         {
-            case Behavior.Idle:
+            case objectsGenerator.Behavior.Idle:
                 // .activeVigilant = false;
                 opTypeShoot(false);
                 Debug.Log("IDLE");
             break;
-            case Behavior.Vigilant:
+            case objectsGenerator.Behavior.Vigilant:
                 // rotate turret - find enemy
                 captGunbools.activeVigilant = true;
                 opTypeShoot(false);
                 Debug.Log("VIGILANT");
             break;
-            case Behavior.Shoot:
+            case objectsGenerator.Behavior.Shoot:
                 // shoot weapon
                 opTypeShoot(true);
                 Debug.Log("SHOOT");
             break;
             default:
-                currentState = Behavior.Idle;
+                currentState = objectsGenerator.Behavior.Idle;
             break;
         }
     }
@@ -112,7 +113,7 @@ public class trenchManager : MonoBehaviour
         }
         else
         {   // back to Vigilant
-            currentState = Behavior.Vigilant;
+            currentState = objectsGenerator.Behavior.Vigilant;
             Debug.Log("DEFAULT");
             opTypeShoot(false);
         }

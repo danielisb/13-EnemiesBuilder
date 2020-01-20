@@ -23,6 +23,8 @@ public class troopManager : MonoBehaviour
     public float effectiveDistance; // Raio de distância Efetiva
     public soldiersManager.Animations recognitionAction; // seletor de animação específica 
     public soldiersManager.Animations effectiveAction; // seletor de animação específica
+    public objectsGenerator.Behavior recognitionActionOBJ; // seletor de animação específica 
+    public objectsGenerator.Behavior effectiveActionOBJ; // seletor de animação específica
     //---------------------------------------------------------------------------------------------
     void Awake()
     {
@@ -60,9 +62,44 @@ public class troopManager : MonoBehaviour
         soldierGO2.GetComponent<soldiersManager>().enabled =true;
         soldierGO3.GetComponent<soldiersManager>().enabled =true;
         soldierGO4.GetComponent<soldiersManager>().enabled =true;
+        
+        chooseActions();
+    }
+    void chooseActions()
+    {
+        switch (recognitionActionOBJ)
+        {
+            case objectsGenerator.Behavior.Idle:
+                recognitionAction = soldiersManager.Animations.CrIdle;
+                break;
+            case objectsGenerator.Behavior.Vigilant:
+                recognitionAction = soldiersManager.Animations.Vigilant;
+                break;
+            case objectsGenerator.Behavior.Shoot:
+                recognitionAction = soldiersManager.Animations.CrFire;
+                break;
+            case objectsGenerator.Behavior.Move:
+                recognitionAction = soldiersManager.Animations.UpRun;
+                break;
+        }
+        switch (effectiveActionOBJ)
+        {
+            case objectsGenerator.Behavior.Idle:
+                effectiveAction = soldiersManager.Animations.CrIdle;
+                break;
+            case objectsGenerator.Behavior.Vigilant:
+                effectiveAction = soldiersManager.Animations.Vigilant;
+                break;
+            case objectsGenerator.Behavior.Shoot:
+                effectiveAction = soldiersManager.Animations.CrFire;
+                break;
+            case objectsGenerator.Behavior.Move:
+                effectiveAction = soldiersManager.Animations.UpRun;
+                break;
+        }
     }
     void Update()
     {
-
+        
     }
 }

@@ -26,7 +26,7 @@ public class soldiersManager : MonoBehaviour
         Vigilant,
     }
     public Animations recognitionAction; // seletor de animação específica 
-    public new Animations effectiveAction; // seletor de animação específica
+    public Animations effectiveAction; // seletor de animação específica
     float startTime; // Time when the movement started
     float journeyLength; // Total distance between the markers  
     public bool externalControl; // desativa controles e habilita controle externo (STAND BY)

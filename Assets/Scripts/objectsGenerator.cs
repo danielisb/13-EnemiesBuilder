@@ -151,7 +151,7 @@ public class objectsGenerator : MonoBehaviour
         enemies[i].rotation.z = 0;
         enemies[i].identificationRange = 200f;
         enemies[i].weaponRange = 100f;
-        enemies[i].identificationAction = Behavior.Vigilant;
+        enemies[i].identificationAction = Behavior.Shoot;
         enemies[i].effectiveAction = Behavior.Shoot;
         i++;
         // enemies[i].type = Type.Vehicle;
@@ -248,8 +248,8 @@ public class objectsGenerator : MonoBehaviour
         var settings = enemiesSoldiers.GetComponent<troopManager>();
             settings.detectionRadius = enemy.identificationRange;
             settings.effectiveDistance = enemy.weaponRange;
-            //settings.identificationAction = enemies[i].identificationAction;
-            //settings.effectiveAction = enemies[i].effectiveAction;
+            settings.recognitionActionOBJ = enemy.identificationAction;
+            settings.effectiveActionOBJ = enemy.effectiveAction;
     }
     void spawnVehicle(Enemy enemy)
     {
@@ -258,13 +258,13 @@ public class objectsGenerator : MonoBehaviour
         prefabGenerator = Instantiate(enemyVehicle, genObject.transform.position, Quaternion.identity);
         prefabGenerator.transform.eulerAngles = new Vector3(0f, enemy.rotation.y, 0f);
         prefabGenerator.name = "Vehicle";
-        Destroy(genObject);
+        Destroy(genObject);        
+        spawnEnemyTrajectory(enemy); // spawn enemy trajectory inside vehicleManger
         var settings = enemyVehicle.GetComponent<vehiclesManager>();
             settings.detectionRadius = enemy.identificationRange;
             settings.effectiveDistance = enemy.weaponRange;
-            //settings.effectiveAction = enemies[i].identificationAction;
-            //settings.effectiveAction = enemies[i].identificationAction;
-        spawnEnemyTrajectory(enemy); // spawn enemy trajectory inside vehicleManger
+            settings.recognitionAction = enemy.identificationAction;
+            settings.effectiveAction = enemy.effectiveAction;        
     }
     void spawnMachineGun(Enemy enemy)
     {
@@ -277,8 +277,8 @@ public class objectsGenerator : MonoBehaviour
         var settings = enemyMachineGun.GetComponent<trenchManager>();
             settings.detectionRadius = enemy.identificationRange;
             settings.effectiveDistance = enemy.weaponRange;            
-            //settings.identificationAction = enemies[i].identificationAction;
-            //settings.effectiveAction = enemies[i].effectiveAction;
+            settings.identificationAction = enemy.identificationAction;
+            settings.effectiveAction = enemy.effectiveAction;
     }
     void spawnPlayer(Enemy enemy)
     {
