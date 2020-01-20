@@ -55,7 +55,7 @@ public class VehicleModel : MonoBehaviour
 	//------------------------------
 	void Start()
 	{
-		_vehiclesManager = carController.GetComponent<vehiclesManager>();
+		//_vehiclesManager = carController.GetComponent<vehiclesManager>();
 		
 		//Log.Trace("VehicleModel.Start()");
 

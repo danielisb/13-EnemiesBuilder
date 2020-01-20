@@ -98,8 +98,4 @@ public class troopManager : MonoBehaviour
                 break;
         }
     }
-    void Update()
-    {
-        
-    }
 }

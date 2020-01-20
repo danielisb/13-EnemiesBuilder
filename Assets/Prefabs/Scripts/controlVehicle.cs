@@ -12,7 +12,7 @@ public class controlVehicle : MonoBehaviour
 	public bool init;
 	VehicleModel model;
 	bool initialized;	
-	void Awake ()
+	void Start ()
 	{
 		objsGenerator = GameObject.Find("ObjectsCreator");
 		_objsGenerator = objsGenerator.GetComponent<objectsGenerator>();
@@ -22,16 +22,16 @@ public class controlVehicle : MonoBehaviour
 	}
 	void Update () 
 	{
-		init = _objsGenerator.move;
-		
-		if (init == true && !initialized) {	
+		init = _objsGenerator.move;				
+		if (init == true && !initialized)
+		{	
 			model = vehicle.GetComponent<VehicleModel>();
 			initialized = true;
-
 			if (trajectory != null)
-			  	model.SetTrajectory(new GameObjectWrapper(trajectory));
-
-			drive();
+			{
+				model.SetTrajectory(new GameObjectWrapper(trajectory));
+				drive();
+			}
 		}
 	}
 	void drive()

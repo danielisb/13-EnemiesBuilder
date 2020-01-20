@@ -14,7 +14,7 @@ public class objectsGenerator : MonoBehaviour
     public GameObject enemiesSoldiers; // armazena prefab dos soldados
     public GameObject objTrajectory; // armazena trajectory criado na execução
     public GameObject objEnemyTrajectory; // armazena enemyTrajectory criado na execução
-    //-------------------------------
+    //-----------------------------------
     GameObject genObject; // gameObject criado dinamicamente para instanciar prefabs nos locais predefinidos
     GameObject prefabGenerator; // armazena e instancia prefabs dinamicamente
     public struct Coordinates
@@ -23,7 +23,6 @@ public class objectsGenerator : MonoBehaviour
         public float y;
         public float z;
     };
-    Coordinates[] points;
     public enum Type
     {
         Player,
@@ -52,20 +51,13 @@ public class objectsGenerator : MonoBehaviour
     Enemy[] enemies;
     void Start()
     {
-        points = new Coordinates[12];
         enemies = new Enemy[4];
-
         inputData();
         processData();
-    }
-    void Update()
-    {
-        
     }
     void inputData() // Recebe dados de entrada
     {
         int i = 0;        
-
         enemies[i].type = Type.Player;
         enemies[i].position.x = 161f;
         enemies[i].position.y = 0f;
@@ -189,8 +181,6 @@ public class objectsGenerator : MonoBehaviour
     }
     void processData()
     {
-        spawnTrajectory();
-        
         for(int i=0; i<enemies.Length; i++)
         {
             switch (enemies[i].type)
@@ -211,16 +201,16 @@ public class objectsGenerator : MonoBehaviour
             Debug.Log("enemiesArraySize: " + enemies.Length);
         }
     }
-    void spawnTrajectory()
+    void spawnPlayerTrajectory(Enemy enemy)
     {
         objTrajectory = new GameObject();
         objTrajectory.name = "Trajectory";
         objTrajectory.AddComponent<dinamicCoordinates>();
-        for(int i=0; i<points.Length; i++)
+        for(int i=0; i<enemy.trajectory.Length; i++)
         {
             var childrensOBJ = new GameObject();
                 childrensOBJ.name = "Point";			
-			    childrensOBJ.transform.position = new Vector3(points[i].x, points[i].y, points[i].z);
+			    childrensOBJ.transform.position = new Vector3(enemy.trajectory[i].x, enemy.trajectory[i].y, enemy.trajectory[i].z);
 			    childrensOBJ.transform.parent = objTrajectory.transform; // transforma objeto em filho dentro do objeto pai
         }
     }
@@ -259,12 +249,12 @@ public class objectsGenerator : MonoBehaviour
         prefabGenerator.transform.eulerAngles = new Vector3(0f, enemy.rotation.y, 0f);
         prefabGenerator.name = "Vehicle";
         Destroy(genObject);        
-        spawnEnemyTrajectory(enemy); // spawn enemy trajectory inside vehicleManger
         var settings = enemyVehicle.GetComponent<vehiclesManager>();
             settings.detectionRadius = enemy.identificationRange;
             settings.effectiveDistance = enemy.weaponRange;
             settings.recognitionAction = enemy.identificationAction;
-            settings.effectiveAction = enemy.effectiveAction;        
+            settings.effectiveAction = enemy.effectiveAction;
+        spawnEnemyTrajectory(enemy); // spawn enemy trajectory inside vehicleManger            
     }
     void spawnMachineGun(Enemy enemy)
     {
@@ -290,6 +280,6 @@ public class objectsGenerator : MonoBehaviour
         Destroy(genObject);
         var playerOBJ = player.GetComponent<controlVehicle>();
             playerOBJ.objsGenerator = this.gameObject;
-        spawnEnemyTrajectory(enemy);
+        spawnPlayerTrajectory(enemy);        
     }
 }

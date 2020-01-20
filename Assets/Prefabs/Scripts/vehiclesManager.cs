@@ -13,7 +13,7 @@ public class vehiclesManager : MonoBehaviour
     //public Transform scape; // GameObject with coordinates to scape
     public GameObject trajectory; // path to move
     //public GameObject trigger; // test
-    public GameObject particleSystem; // particles of shoot
+    public GameObject _paticleSystem; // particles of shoot
     public GameObject objsGenerator;
 
     [Header("Settings")]
@@ -119,7 +119,7 @@ public class vehiclesManager : MonoBehaviour
         captGunbools = LookAtGO.GetComponent<LookAtGun>();
         detection = vehicleGO.GetComponent<DetectTarget>();
         _TurretControl = turretControlGO.GetComponent<TurretControl>();
-        gettingTypeShoot = particleSystem.GetComponent<shootMAG>();
+        gettingTypeShoot = _paticleSystem.GetComponent<shootMAG>();
         gettingExplosion = vehicleGO.GetComponent<vehicle_Explode>();
 
         objsGenerator = GameObject.Find("ObjectsCreator");
@@ -230,7 +230,7 @@ public class vehiclesManager : MonoBehaviour
     {
         if(_objsGenerator.objEnemyTrajectory != null)
         {
-            //print("NOT NULL ----------");
+            print("NOT NULL ----------");
             trajectory = _objsGenerator.objEnemyTrajectory;
         }
     }
