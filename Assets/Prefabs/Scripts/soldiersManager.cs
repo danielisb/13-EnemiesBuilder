@@ -9,7 +9,7 @@ public class soldiersManager : MonoBehaviour
     public GameObject soldierGO; // GameObject do soldado
     public GameObject enemyTarget; // GameObject para alvo do inimigo
     public Transform scape; // GameObject com coordenadas para fuga
-    AnimatorManager animator_Manager; // AnimatorManager animator;
+    public GameObject captTarget;
 
     [Header("Settings")]
     [Range(0, 700)]
@@ -35,6 +35,7 @@ public class soldiersManager : MonoBehaviour
     DetectTarget detection2;
     DetectTarget detection3;
     DetectTarget detection4;
+    AnimatorManager animator_Manager; // AnimatorManager animator;
     bool lookAtTrigger; // variável temporária de gatilho que ativa a função lookAt
     bool scapeTrigger; // variável de gatilho que ativa a função Scape
     bool endScape; // Verifica se o soldado realizou o Scape()
@@ -64,6 +65,8 @@ public class soldiersManager : MonoBehaviour
         startTime = Time.time; // Keep a note of the time the movement started (scape function)
         journeyLength = Vector3.Distance(soldierGO.transform.position, scape.transform.position); // Calculate the journey length
         
+        captTarget = GameObject.Find("Player");		
+        enemyTarget = captTarget.gameObject;
         detection.enemiesTag = enemyTarget.tag; // passa a tag do GameObject enemyTarget para a string "enemiesTag" do script DetectTarget
     }
     void Update()

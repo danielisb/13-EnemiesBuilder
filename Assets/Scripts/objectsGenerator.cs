@@ -51,11 +51,11 @@ public class objectsGenerator : MonoBehaviour
         public Behavior effectiveAction;
         public Coordinates[] trajectory;
     }
-    Enemy[] enemies;
+    Enemy[] enemies;    
     void Start()
     {
-        enemies = new Enemy[4];
-        inputData();
+        enemies = new Enemy[2];
+        inputData();        
         processData();
     }
     void inputData() // Recebe dados de entrada
@@ -106,7 +106,7 @@ public class objectsGenerator : MonoBehaviour
         enemies[i].trajectory[11].y = 1.5f;
         enemies[i].trajectory[11].z = -64.4f;
         i++;
-        enemies[i].type = Type.MachineGun;
+        enemies[i].type = Type.Soldier;
         enemies[i].position.x = 154f;
         enemies[i].position.y = 0f;
         enemies[i].position.z = 73f;
@@ -117,38 +117,38 @@ public class objectsGenerator : MonoBehaviour
         enemies[i].weaponRange = 100f;
         enemies[i].identificationAction = Behavior.Vigilant;
         enemies[i].effectiveAction = Behavior.Shoot;
-        i++;
-        enemies[i].type = Type.Vehicle;
-        enemies[i].position.x = 50f;
-        enemies[i].position.y = 0f;
-        enemies[i].position.z = 70f;
-        enemies[i].rotation.x = 0f;
-        enemies[i].rotation.y = 104.38f;
-        enemies[i].rotation.z = 0;
-        enemies[i].identificationRange = 200f;
-        enemies[i].weaponRange = 100f;
-        enemies[i].identificationAction = Behavior.Move;
-        enemies[i].effectiveAction = Behavior.Shoot;
-        enemies[i].trajectory = new Coordinates[2];
-        enemies[i].trajectory[0].x = 29.7f;
-        enemies[i].trajectory[0].y = 1.5f;
-        enemies[i].trajectory[0].z = 82.4f;
-        enemies[i].trajectory[1].x = 25f;
-        enemies[i].trajectory[1].y = 1.5f;
-        enemies[i].trajectory[1].z = 19.6f;
-        i++;
-        enemies[i].type = Type.Soldier;
-        enemies[i].position.x = 64f;
-        enemies[i].position.y = 0f;
-        enemies[i].position.z = -76f;
-        enemies[i].rotation.x = 0f;
-        enemies[i].rotation.y = 358.52f;
-        enemies[i].rotation.z = 0;
-        enemies[i].identificationRange = 200f;
-        enemies[i].weaponRange = 100f;
-        enemies[i].identificationAction = Behavior.Shoot;
-        enemies[i].effectiveAction = Behavior.Shoot;
-        i++;
+        // i++;
+        // enemies[i].type = Type.Vehicle;
+        // enemies[i].position.x = 50f;
+        // enemies[i].position.y = 0f;
+        // enemies[i].position.z = 70f;
+        // enemies[i].rotation.x = 0f;
+        // enemies[i].rotation.y = 104.38f;
+        // enemies[i].rotation.z = 0;
+        // enemies[i].identificationRange = 200f;
+        // enemies[i].weaponRange = 100f;
+        // enemies[i].identificationAction = Behavior.Move;
+        // enemies[i].effectiveAction = Behavior.Shoot;
+        // enemies[i].trajectory = new Coordinates[2];
+        // enemies[i].trajectory[0].x = 29.7f;
+        // enemies[i].trajectory[0].y = 1.5f;
+        // enemies[i].trajectory[0].z = 82.4f;
+        // enemies[i].trajectory[1].x = 25f;
+        // enemies[i].trajectory[1].y = 1.5f;
+        // enemies[i].trajectory[1].z = 19.6f;
+        // i++;
+        // enemies[i].type = Type.Soldier;
+        // enemies[i].position.x = 64f;
+        // enemies[i].position.y = 0f;
+        // enemies[i].position.z = -76f;
+        // enemies[i].rotation.x = 0f;
+        // enemies[i].rotation.y = 358.52f;
+        // enemies[i].rotation.z = 0;
+        // enemies[i].identificationRange = 200f;
+        // enemies[i].weaponRange = 100f;
+        // enemies[i].identificationAction = Behavior.Shoot;
+        // enemies[i].effectiveAction = Behavior.Shoot;
+        // i++;
         // enemies[i].type = Type.Vehicle;
         // enemies[i].position.x = -67f;
         // enemies[i].position.y = 0f;
@@ -180,7 +180,7 @@ public class objectsGenerator : MonoBehaviour
         // enemies[i].rotation.z = 0;
         // enemies[i].identificationRange = 150;
         // enemies[i].weaponRange = 80f;
-        // enemies[i].identificationAction = Behavior.Vigilant; 
+        // enemies[i].identificationAction = Behavior.Vigilant;        
     }
     void processData()
     {

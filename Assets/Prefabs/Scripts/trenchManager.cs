@@ -8,6 +8,7 @@ public class trenchManager : MonoBehaviour
     [Header("Objects")]
     public GameObject trenchGO;
     public GameObject _particleSystem; // particles of shoot
+    public GameObject captTarget;
 
     [Header("Settings")]
     public Transform target; // GameObject enemy
@@ -38,6 +39,7 @@ public class trenchManager : MonoBehaviour
     lookAtTrench captGunbools; // capt Shoot bool from Gun_Jeep
     DetectTarget detection; // aponta para variável com distância do inimigo no script DetectTarget
     objectsGenerator.Behavior currentState;
+    objectsGenerator playerScene;
     int cadenceTypeShoot;
     void opTypeShoot(bool flag) // cadence Shoot
     {
@@ -57,7 +59,9 @@ public class trenchManager : MonoBehaviour
         detection = trenchGO.GetComponent<DetectTarget>();
         gettingTypeShoot = _particleSystem.GetComponent<shootMAG>();
         
-        detection.enemiesTag = target.tag; // passa a tag do GameObject target para a string "enemiesTag" do script DetectTarget
+        captTarget = GameObject.Find("Player");		
+        target = captTarget.transform;
+        detection.enemiesTag = target.tag; 
         currentState = objectsGenerator.Behavior.Idle; // vehicle start in Vigilant
     }
     void Update()

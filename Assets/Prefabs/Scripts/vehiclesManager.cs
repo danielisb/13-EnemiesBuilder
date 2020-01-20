@@ -15,6 +15,7 @@ public class vehiclesManager : MonoBehaviour
     //public GameObject trigger; // test
     public GameObject _paticleSystem; // particles of shoot
     public GameObject objsGenerator;
+    public GameObject captTarget;
 
     [Header("Settings")]
     [Range(0, 3000)]
@@ -124,6 +125,9 @@ public class vehiclesManager : MonoBehaviour
 
         objsGenerator = GameObject.Find("ObjectsCreator");
         _objsGenerator = objsGenerator.GetComponent<objectsGenerator>();
+
+        captTarget = GameObject.Find("Player");		
+        enemyTarget = captTarget.transform;
 
         detection.enemiesTag = enemyTarget.tag; // passa a tag do GameObject enemyTarget para a string "enemiesTag" do script DetectTarget
         currentState = objectsGenerator.Behavior.Vigilant; // vehicle start in Vigilant
