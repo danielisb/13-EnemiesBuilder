@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class objectsGenerator : MonoBehaviour
 {
-    [Header("Settings")]
+    [Header("Player Settings")]
     public bool move; // faz o veículo (Player) andar
+
+    [Range(-20, 90)]
+	public float playerVelocity;
 
     [Header("Objects")]
     public GameObject player; // armazena prefab dos players
@@ -227,6 +230,18 @@ public class objectsGenerator : MonoBehaviour
                 childrensOBJ.transform.parent = objEnemyTrajectory.transform;
         }
     }
+    void spawnPlayer(Enemy enemy)
+    {
+        genObject = new GameObject();
+        genObject.transform.position = new Vector3(enemy.position.x, enemy.position.y, enemy.position.z);
+        prefabGenerator = Instantiate(player, genObject.transform.position, Quaternion.identity);
+        prefabGenerator.transform.eulerAngles = new Vector3(0f, enemy.rotation.y, 0f);
+        prefabGenerator.name = "Player";
+        Destroy(genObject);
+        var playerOBJ = player.GetComponent<controlVehicle>();
+            playerOBJ.objsGenerator = this.gameObject;
+        spawnPlayerTrajectory(enemy);        
+    }
     void spawnSoldiers(Enemy enemy)
     {
         genObject = new GameObject();
@@ -269,17 +284,5 @@ public class objectsGenerator : MonoBehaviour
             settings.effectiveDistance = enemy.weaponRange;            
             settings.identificationAction = enemy.identificationAction;
             settings.effectiveAction = enemy.effectiveAction;
-    }
-    void spawnPlayer(Enemy enemy)
-    {
-        genObject = new GameObject();
-        genObject.transform.position = new Vector3(enemy.position.x, enemy.position.y, enemy.position.z);
-        prefabGenerator = Instantiate(player, genObject.transform.position, Quaternion.identity);
-        prefabGenerator.transform.eulerAngles = new Vector3(0f, enemy.rotation.y, 0f);
-        prefabGenerator.name = "Player";
-        Destroy(genObject);
-        var playerOBJ = player.GetComponent<controlVehicle>();
-            playerOBJ.objsGenerator = this.gameObject;
-        spawnPlayerTrajectory(enemy);        
     }
 }

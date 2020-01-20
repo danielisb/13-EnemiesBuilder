@@ -178,6 +178,7 @@ public class VehicleModel : MonoBehaviour
 		const float kI = 0.1f;
 
 		float velocity = _carController.velocity * 3.6f;  // from m/s to km/h
+		
 		velocity = Round(velocity, 1);
 
 		float error = target - velocity;
@@ -202,8 +203,6 @@ public class VehicleModel : MonoBehaviour
 		velocity = Round(velocity, 2);
 		
 		input = 60f;
-
-		//_targetVelocity = _vehiclesManager.velocity;
 	}
 	//------------------------------
 	public float GetDriveVelocity()
