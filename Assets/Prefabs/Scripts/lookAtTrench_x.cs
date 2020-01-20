@@ -24,7 +24,9 @@ public class lookAtTrench_x : MonoBehaviour
     {   
         // Active LookAt
         if(activeLookAt == true)
+        {
             moveGUN();
+        }            
         // Vigilant action
         if(activeVigilant == true)
         {
@@ -33,9 +35,10 @@ public class lookAtTrench_x : MonoBehaviour
     }
     void moveGUN()
     {
-        maxAngle = getTrenchManager.elevation;
+        maxAngle = getTrenchManager.elevation_z;
         Vector3 look = target.transform.position - transform.position;
-        look.z = 35; // angle defined to move
+        look = new Vector3(0f, 0f, getTrenchManager.azimuth_y);
+        //look.z = 35; // angle defined to move
         Quaternion q = Quaternion.LookRotation(look);
         if (Quaternion.Angle (q, baseRotation) <= maxAngle)
             targetRotation = q;
@@ -44,5 +47,6 @@ public class lookAtTrench_x : MonoBehaviour
     void vigilantBehavior()
     {
         //transform.Rotate(0, 50 * Time.deltaTime, 0);
+        activeLookAt = true;
     }
 }

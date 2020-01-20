@@ -86,9 +86,9 @@ public class vehiclesManager : MonoBehaviour
                 hard_shield = false;
             break;
         }
-        Debug.Log(" manager normal_shield " + normal_shield);
-        Debug.Log(" manager _medium_shield " + medium_shield);
-        Debug.Log(" manager _hard_shield " + hard_shield);
+        // Debug.Log(" manager normal_shield " + normal_shield);
+        // Debug.Log(" manager _medium_shield " + medium_shield);
+        // Debug.Log(" manager _hard_shield " + hard_shield);
     }
     int cadenceTypeShoot;
     void opTypeShoot(bool flag) // cadence Shoot
@@ -167,22 +167,22 @@ public class vehiclesManager : MonoBehaviour
             case objectsGenerator.Behavior.Vigilant:
                 // rotate turret - find enemy
                 _TurretControl.activeVigilant = true;
-                Debug.Log("VIGILANT");
+                //Debug.Log("VIGILANT");
             break;
             case objectsGenerator.Behavior.Move:
                 // move vehicle
                 moveVehicle = true;
-                Debug.Log("MOVE");
+                //Debug.Log("MOVE");
             break;
             case objectsGenerator.Behavior.Shoot:
                 // shoot weapon
                 opTypeShoot(true);
-                Debug.Log("SHOOT");
+                //Debug.Log("SHOOT");
             break;
             case objectsGenerator.Behavior.Idle:
                 // stop vehicle
                 moveVehicle = false;
-                Debug.Log("IDLE");
+                //Debug.Log("IDLE");
             break;
             default:
                 currentState = objectsGenerator.Behavior.Vigilant;
@@ -208,7 +208,7 @@ public class vehiclesManager : MonoBehaviour
         {
             captGunbools.activeLookAt = true;
             currentState = recognitionAction;
-            Debug.Log("RECOGNITION");
+            //Debug.Log("RECOGNITION");
         }
         else
         // Effective Action
@@ -216,12 +216,12 @@ public class vehiclesManager : MonoBehaviour
         {
             captGunbools.activeLookAt = true;
             currentState = effectiveAction;
-            Debug.Log("EFFECTIVE");
+            //Debug.Log("EFFECTIVE");
         }
         else
         {   // back to Vigilant
             currentState = objectsGenerator.Behavior.Vigilant;
-            Debug.Log("DEFAULT");
+            //Debug.Log("DEFAULT");
             opTypeShoot(false);
         }
     }
@@ -234,7 +234,7 @@ public class vehiclesManager : MonoBehaviour
     {
         if(_objsGenerator.objEnemyTrajectory != null)
         {
-            print("NOT NULL ----------");
+            //print("NOT NULL ----------");
             trajectory = _objsGenerator.objEnemyTrajectory;
         }
     }

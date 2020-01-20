@@ -201,7 +201,7 @@ public class objectsGenerator : MonoBehaviour
                     spawnSoldiers(enemies[i]);
                     break;
             }
-            Debug.Log("enemiesArraySize: " + enemies.Length);
+            Debug.Log("Enemies: " + (enemies.Length-1));
         }
     }
     void spawnPlayerTrajectory(Enemy enemy)

@@ -19,11 +19,7 @@ public class lookAtTrench : MonoBehaviour
     float speed = 1.25f;
     float rotateSpeed = 3.0f;
     float timer = 0;
-
-    public Transform p1;
-    public Transform p2;
-
-     private float timeCount = 0.0f;
+    private float timeCount = 0.0f;
     void Start()
     {
         getTrenchManager = trenchManagerGO.GetComponent<trenchManager>();
@@ -31,14 +27,15 @@ public class lookAtTrench : MonoBehaviour
         target = getTrenchManager.target;
         activeLookAt = false;
         baseRotation = transform.rotation;
-        //qTo = Quaternion.Euler(Vector3(0.0,Random.Range(-180.0, 180.0), 0.0));
     }
     void Update()
     {   
         // Active LookAt
         if(activeLookAt == true)
-            activeLookAt_X.activeLookAt = true;
+        {
             moveGUN();
+            activeLookAt_X.activeLookAt = true;
+        }                        
         // Vigilant action
         if(activeVigilant == true)
         {
@@ -48,7 +45,7 @@ public class lookAtTrench : MonoBehaviour
     }
     void moveGUN()
     {
-        maxAngle = getTrenchManager.azimuth;
+        maxAngle = getTrenchManager.azimuth_y;
         Vector3 look = target.transform.position - transform.position;
         look.y = 0; // angle defined to move
         Quaternion q = Quaternion.LookRotation(look);
@@ -61,7 +58,6 @@ public class lookAtTrench : MonoBehaviour
         //transform.Rotate(0, 50 * Time.deltaTime, 0);     
         //Vector3 rot = new Vector3(0f, Random.rotation.y, 0f);   
         transform.rotation = Quaternion.Euler(new Vector3(0f ,Random.Range(-20f, 20f), 0f)); 
-
        
         // Vector3 euler;
         // euler.y = Random.Range(-20f, 20f);    
@@ -82,29 +78,3 @@ public class lookAtTrench : MonoBehaviour
         // transform.rotation = Quaternion.Lerp(transform.rotation, euler, Time.deltaTime * 1);
     }
 }
-
-//  #pragma strict
-//  var noTarget = true;
-//  var qTo : Quaternion;
-//  var speed = 1.25;
-//  var rotateSpeed = 3.0;
-//  var timer = 0.0;
- 
-//  function Start() {
-//    qTo = Quaternion.Euler(Vector3(0.0,Random.Range(-180.0, 180.0), 0.0));
- 
-//  }
- 
-//  function Update() {
- 
-//      timer += Time.deltaTime;
- 
-//      if(noTarget == true) {//when not targeting hero     
-//          if(timer > 2) { // timer resets at 2, allowing .5 s to do the rotating
-//                qTo = Quaternion.Euler(Vector3(0.0,Random.Range(-180.0, 180.0), 0.0));  
-//                timer = 0.0;
-//              }
-//          transform.rotation = Quaternion.Slerp(transform.rotation, qTo, Time.deltaTime * rotateSpeed);
-//          transform.Translate(Vector3.forward * speed * Time.deltaTime);
-//      }
-//  }

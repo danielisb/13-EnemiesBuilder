@@ -26,8 +26,8 @@ public class trenchManager : MonoBehaviour
     // }
     public objectsGenerator.Behavior identificationAction; // select recognition action
     public objectsGenerator.Behavior effectiveAction; // select effective action
-    public float elevation;
-    public float azimuth;
+    public float elevation_z;
+    public float azimuth_y;
     enum typeShoot // cadence shoot
     {
         Full,
@@ -73,18 +73,18 @@ public class trenchManager : MonoBehaviour
             case objectsGenerator.Behavior.Idle:
                 // .activeVigilant = false;
                 opTypeShoot(false);
-                Debug.Log("IDLE");
+                //Debug.Log("IDLE");
             break;
             case objectsGenerator.Behavior.Vigilant:
                 // rotate turret - find enemy
                 captGunbools.activeVigilant = true;
                 opTypeShoot(false);
-                Debug.Log("VIGILANT");
+                //Debug.Log("VIGILANT");
             break;
             case objectsGenerator.Behavior.Shoot:
                 // shoot weapon
                 opTypeShoot(true);
-                Debug.Log("SHOOT");
+                //Debug.Log("SHOOT");
             break;
             default:
                 currentState = objectsGenerator.Behavior.Idle;
@@ -105,7 +105,7 @@ public class trenchManager : MonoBehaviour
         {
             captGunbools.activeLookAt = true;
             currentState = identificationAction;
-            Debug.Log("RECOGNITION");
+            //Debug.Log("RECOGNITION");
         }
         else
         // Effective Action
@@ -113,12 +113,12 @@ public class trenchManager : MonoBehaviour
         {
             captGunbools.activeLookAt = true;
             currentState = effectiveAction;
-            Debug.Log("EFFECTIVE");
+            //Debug.Log("EFFECTIVE");
         }
         else
         {   // back to Vigilant
             currentState = objectsGenerator.Behavior.Vigilant;
-            Debug.Log("DEFAULT");
+            //Debug.Log("DEFAULT");
             opTypeShoot(false);
         }
     }
