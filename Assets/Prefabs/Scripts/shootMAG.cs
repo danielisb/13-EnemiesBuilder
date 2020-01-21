@@ -14,6 +14,13 @@ public class shootMAG : MonoBehaviour
         MAGfire = GetComponent<ParticleSystem>();
         animator = GetComponent<Animator>();
     }
+    void Update()
+        {
+            if(Input.GetKeyDown(KeyCode.F))
+            {
+                shoot();
+            }
+        }
     void shoot()
     {
         print("is shooting");
@@ -22,7 +29,7 @@ public class shootMAG : MonoBehaviour
             bullet.parent = transform;
             bullet.transform.localPosition = new Vector3();
             bullet.rotation = new Quaternion();
-            bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * 100f;
+            bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * 20f;
             bullet.GetComponent<Rigidbody>().AddForce(bullet.transform.forward * 100f);
         PlayShootingAudio();
     }

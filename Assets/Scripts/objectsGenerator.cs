@@ -125,7 +125,7 @@ public class objectsGenerator : MonoBehaviour
         enemies[i].rotation.x = 0f;
         enemies[i].rotation.y = 104.38f;
         enemies[i].rotation.z = 0;
-        enemies[i].identificationRange = 200f;
+        enemies[i].identificationRange = 100f;
         enemies[i].weaponRange = 80f;
         enemies[i].identificationAction = Behavior.Move;
         enemies[i].effectiveAction = Behavior.Shoot;

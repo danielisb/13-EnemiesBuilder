@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class hitsMetal : MonoBehaviour
 {    
-    int i = 0;
+    int i;
+    int atacks=0;
     public AudioSource audio1;
     public AudioSource audio2;
     public AudioSource audio3;
     AudioSource audioSelect;
     void Start()
     {
+        i = 0;
         audio1 = GetComponent<AudioSource>();
         audio2 = GetComponent<AudioSource>();
         audio3 = GetComponent<AudioSource>();
@@ -37,6 +39,9 @@ public class hitsMetal : MonoBehaviour
     {                
         if(col.gameObject.CompareTag("bulletM4a1"))
         {
+            atacks = atacks+1;
+            print("Atacks" + atacks);
+
             i = (i + 1) % 3;           
             if(i == 1)
             {                
