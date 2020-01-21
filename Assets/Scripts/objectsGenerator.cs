@@ -114,7 +114,7 @@ public class objectsGenerator : MonoBehaviour
         enemies[i].rotation.y = 162.18f;
         enemies[i].rotation.z = 0;
         enemies[i].identificationRange = 200f;
-        enemies[i].weaponRange = 100f;
+        enemies[i].weaponRange = 70f;
         enemies[i].identificationAction = Behavior.Vigilant;
         enemies[i].effectiveAction = Behavior.Shoot;
         i++;
@@ -126,7 +126,7 @@ public class objectsGenerator : MonoBehaviour
         enemies[i].rotation.y = 104.38f;
         enemies[i].rotation.z = 0;
         enemies[i].identificationRange = 200f;
-        enemies[i].weaponRange = 100f;
+        enemies[i].weaponRange = 80f;
         enemies[i].identificationAction = Behavior.Move;
         enemies[i].effectiveAction = Behavior.Shoot;
         enemies[i].trajectory = new Coordinates[2];
@@ -145,7 +145,7 @@ public class objectsGenerator : MonoBehaviour
         enemies[i].rotation.y = 358.52f;
         enemies[i].rotation.z = 0;
         enemies[i].identificationRange = 200f;
-        enemies[i].weaponRange = 100f;
+        enemies[i].weaponRange = 70f;
         enemies[i].identificationAction = Behavior.Shoot;
         enemies[i].effectiveAction = Behavior.Shoot;
         // i++;

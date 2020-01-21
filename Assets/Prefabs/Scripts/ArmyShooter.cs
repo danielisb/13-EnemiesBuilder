@@ -13,8 +13,8 @@ public class ArmyShooter : MonoBehaviour
         bullet.parent = transform;
         bullet.transform.localPosition = new Vector3();
         bullet.rotation = new Quaternion();
-        bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * 50f;
-        bullet.GetComponent<Rigidbody>().AddForce(bullet.transform.forward * 5f);     
+        bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * 200f;
+        bullet.GetComponent<Rigidbody>().AddForce(bullet.transform.forward * 1f);     
     }    
     void Start()
     {
