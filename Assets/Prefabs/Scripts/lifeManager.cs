@@ -18,10 +18,6 @@ public class lifeManager : MonoBehaviour
         Health = 100;
         bullet = GameObject.Find("BulletM4a1");
     }
-    // void Update()
-    // {
-        
-    // }
     void OnCollisionEnter(Collision col)
     {
         if(col.gameObject.CompareTag("bulletM4a1"))

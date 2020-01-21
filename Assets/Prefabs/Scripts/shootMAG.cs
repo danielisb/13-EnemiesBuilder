@@ -14,10 +14,6 @@ public class shootMAG : MonoBehaviour
         MAGfire = GetComponent<ParticleSystem>();
         animator = GetComponent<Animator>();
     }
-    // void Update()
-    // {
-        
-    // }
     void shoot()
     {
         print("is shooting");
