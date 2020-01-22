@@ -10,7 +10,6 @@ public class lifeManager : MonoBehaviour
     AnimatorManager animator_Manager; // AnimatorManager animator;
     soldiersManager _soldiersManager;
     int Health;
-    
     void Start()
     {
         animator_Manager = myBody.GetComponent<AnimatorManager>(); // Acive animations
@@ -27,7 +26,7 @@ public class lifeManager : MonoBehaviour
 
             if(Health <= 0)
             {
-                animator_Manager.state = AnimatorManager.Animations.UpDieFront;
+                animator_Manager.state = AnimatorManager.Animations.CrDeath;
                 _soldiersManager.enemyDead = true;
                 print("DEAAAAAD");
             }

@@ -16,10 +16,13 @@ public class shootMAG : MonoBehaviour
     }
     void Update()
         {
-            if(Input.GetKeyDown(KeyCode.F))
+            if(this.gameObject.tag == "Player")
             {
-                shoot();
-            }
+                if(Input.GetKeyDown(KeyCode.L))
+                {
+                    shoot();
+                }
+            }            
         }
     void shoot()
     {

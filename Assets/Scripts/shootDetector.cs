@@ -7,7 +7,7 @@ public class shootDetector : MonoBehaviour
     public GameObject myBody;
     public GameObject trenchDead;
     public GameObject _trenchManager;
-    public GameObject particleSystem; // particles of shoot
+    public GameObject _particleSystem; // particles of shoot
     trenchManager stopShoot;
     trenchExplode activeDeadBool;
     shootMAG MAGdead; // Acessa script shootMAG
@@ -18,22 +18,18 @@ public class shootDetector : MonoBehaviour
     {
         stopShoot = _trenchManager.GetComponent<trenchManager>();
         activeDeadBool = trenchDead.GetComponent<trenchExplode>();
-        MAGdead = particleSystem.GetComponent<shootMAG>();
+        MAGdead = _particleSystem.GetComponent<shootMAG>();
 
         Health = 100;
         bullet = GameObject.Find("BulletM4a1");
         GODead = false;
     }
-    // void Update()
-    // {
-        
-    // }
     void OnCollisionEnter(Collision col)
     {
         if(col.gameObject.CompareTag("bulletM4a1"))
         {
             Health = Health-60;
-            Debug.Log("HEALTH =" + Health);
+            Debug.Log("trench atack =" + Health);
 
             if(Health <= 0)
             {

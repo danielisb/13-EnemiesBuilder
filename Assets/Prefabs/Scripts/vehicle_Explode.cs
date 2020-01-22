@@ -6,19 +6,22 @@ public class vehicle_Explode : MonoBehaviour
 {
     public GameObject vehicleGO; // GameObject vehicle
     public GameObject explosionGO; // particle of vehicle explosion
+    public GameObject shootDetector;
     public GameObject wreckedGO;
     GameObject particles;
     GameObject goodVehicle;
     GameObject wreckedVehicle;
+    shootVehicleDetector detectorBool;
     public bool explodeBool;
     void Start()
     {
+        detectorBool = shootDetector.GetComponent<shootVehicleDetector>();
         explodeBool = false;
     }
     void Update()
     {
         // Explosion
-        if(explodeBool == true)
+        if(detectorBool.GODead == true)
         {
             explosionVehicle();
             Destroy(particles, 5);
