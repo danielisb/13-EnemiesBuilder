@@ -10,16 +10,14 @@ public class objectsGenerator : MonoBehaviour
     [Range(-20, 90)]
 	public float playerVelocity;
 
-    // [Header("Camera Settings")]
-    // public bool dayCamera;
-    // public bool thermalCamera;
-    public Camera dayCamera;
-    public Camera thermalCamera;
-    public GameObject day;
-    public GameObject thermal;
+    [Header("Camera Settings")]
+    public bool dayCamera;
+    public bool thermalCamera;    
 
     [Header("Objects")]
     public GameObject player; // armazena prefab dos players
+    public GameObject _day;
+    public GameObject _thermal;
     public GameObject enemyMachineGun; // armazena prefab das trincheiras
     public GameObject enemyVehicle; // armazena prefab dos veículos
     public GameObject enemiesSoldiers; // armazena prefab dos soldados
@@ -28,10 +26,7 @@ public class objectsGenerator : MonoBehaviour
     //-----------------------------------
     GameObject genObject; // gameObject criado dinamicamente para instanciar prefabs nos locais predefinidos
     GameObject prefabGenerator; // armazena e instancia prefabs dinamicamente
-    
-    bool dayBool = true;
-    bool thermBool = false;
-    //GameObject captPlayer; // recebe player para controlar câmeras    
+       
     public struct Coordinates
     {
         public float x;
@@ -66,47 +61,15 @@ public class objectsGenerator : MonoBehaviour
     Enemy[] enemies;    
     void Start()
     {
-        // dayCamera.enabled = true;
-        // thermalCamera.enabled = false;
+        dayCamera = true;
+        thermalCamera = false;
         enemies = new Enemy[4];
-        //inputData();        
-        //processData();
-
-        // day = GameObject.Find("dayCam");
-        // thermal = GameObject.Find("thermalCam");
-        // dayBool = true;
-        // thermBool = false;
-        // day.SetActive(dayBool);
-        // thermal.SetActive(thermBool);
-    }
-        
-    void cameraActive()
-    {
-        
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            // dayCamera.enabled = !dayCamera.enabled;
-            // thermalCamera.enabled = !thermalCamera.enabled;
-            
-            dayBool = !dayBool;
-            thermBool = !thermBool;
-        }
-        // if ((dayCamera.enabled == !dayCamera.enabled) && (thermalCamera.enabled = !thermalCamera.enabled))
-        // {
-        //     GameObject day = GameObject.Find("dayCam");
-        //     GameObject thermal = GameObject.Find("thermalCam");
-        //     bool dayBool = true;
-        //     bool thermBool = false;
-        //     day.SetActive(dayBool);
-        //     thermal.SetActive(thermBool);
-
-        //     dayBool = !dayBool;
-        //     thermBool = !thermBool;
-        // }
+        inputData();        
+        processData();
     }
     void Update()
     {
-        //cameraActive();
+        cameraActive();
     }
     void inputData() // Recebe dados de entrada
     {
@@ -252,6 +215,25 @@ public class objectsGenerator : MonoBehaviour
                     break;
             }
             Debug.Log("Enemies: " + (enemies.Length-1));
+        }
+    }
+    void cameraActive()
+    {
+        if (Input.GetKeyDown(KeyCode.O))
+        {            
+            dayCamera = !dayCamera;
+            thermalCamera = !thermalCamera;
+
+            if (dayCamera == true)
+            {
+                _day.SetActive(true);
+                _thermal.SetActive(false);
+            }                                           
+            if (thermalCamera == true)
+            {
+                _thermal.SetActive(true);
+                _day.SetActive(false);
+            }        
         }
     }
     void spawnPlayerTrajectory(Enemy enemy)
