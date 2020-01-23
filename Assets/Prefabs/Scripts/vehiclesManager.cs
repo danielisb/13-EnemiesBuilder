@@ -126,7 +126,7 @@ public class vehiclesManager : MonoBehaviour
         objsGenerator = GameObject.Find("ObjectsCreator");
         _objsGenerator = objsGenerator.GetComponent<objectsGenerator>();
 
-        captTarget = GameObject.Find("Player");		
+        captTarget = GameObject.Find("Player");
         enemyTarget = captTarget.transform;
 
         detection.enemiesTag = enemyTarget.tag; // passa a tag do GameObject enemyTarget para a string "enemiesTag" do script DetectTarget

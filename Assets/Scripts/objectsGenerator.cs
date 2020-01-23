@@ -10,6 +10,14 @@ public class objectsGenerator : MonoBehaviour
     [Range(-20, 90)]
 	public float playerVelocity;
 
+    // [Header("Camera Settings")]
+    // public bool dayCamera;
+    // public bool thermalCamera;
+    public Camera dayCamera;
+    public Camera thermalCamera;
+    public GameObject day;
+    public GameObject thermal;
+
     [Header("Objects")]
     public GameObject player; // armazena prefab dos players
     public GameObject enemyMachineGun; // armazena prefab das trincheiras
@@ -20,6 +28,10 @@ public class objectsGenerator : MonoBehaviour
     //-----------------------------------
     GameObject genObject; // gameObject criado dinamicamente para instanciar prefabs nos locais predefinidos
     GameObject prefabGenerator; // armazena e instancia prefabs dinamicamente
+    
+    bool dayBool = true;
+    bool thermBool = false;
+    //GameObject captPlayer; // recebe player para controlar câmeras    
     public struct Coordinates
     {
         public float x;
@@ -54,9 +66,47 @@ public class objectsGenerator : MonoBehaviour
     Enemy[] enemies;    
     void Start()
     {
+        // dayCamera.enabled = true;
+        // thermalCamera.enabled = false;
         enemies = new Enemy[4];
-        inputData();        
-        processData();
+        //inputData();        
+        //processData();
+
+        // day = GameObject.Find("dayCam");
+        // thermal = GameObject.Find("thermalCam");
+        // dayBool = true;
+        // thermBool = false;
+        // day.SetActive(dayBool);
+        // thermal.SetActive(thermBool);
+    }
+        
+    void cameraActive()
+    {
+        
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            // dayCamera.enabled = !dayCamera.enabled;
+            // thermalCamera.enabled = !thermalCamera.enabled;
+            
+            dayBool = !dayBool;
+            thermBool = !thermBool;
+        }
+        // if ((dayCamera.enabled == !dayCamera.enabled) && (thermalCamera.enabled = !thermalCamera.enabled))
+        // {
+        //     GameObject day = GameObject.Find("dayCam");
+        //     GameObject thermal = GameObject.Find("thermalCam");
+        //     bool dayBool = true;
+        //     bool thermBool = false;
+        //     day.SetActive(dayBool);
+        //     thermal.SetActive(thermBool);
+
+        //     dayBool = !dayBool;
+        //     thermBool = !thermBool;
+        // }
+    }
+    void Update()
+    {
+        //cameraActive();
     }
     void inputData() // Recebe dados de entrada
     {
