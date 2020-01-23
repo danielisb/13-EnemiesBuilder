@@ -16,8 +16,8 @@ public class objectsGenerator : MonoBehaviour
 
     [Header("Objects")]
     public GameObject player; // armazena prefab dos players
-    public GameObject _day;
-    public GameObject _thermal;
+    GameObject _selectCamera;
+    // public GameObject _thermal;
     public GameObject enemyMachineGun; // armazena prefab das trincheiras
     public GameObject enemyVehicle; // armazena prefab dos veículos
     public GameObject enemiesSoldiers; // armazena prefab dos soldados
@@ -26,6 +26,7 @@ public class objectsGenerator : MonoBehaviour
     //-----------------------------------
     GameObject genObject; // gameObject criado dinamicamente para instanciar prefabs nos locais predefinidos
     GameObject prefabGenerator; // armazena e instancia prefabs dinamicamente
+    selectCamera selectCamera;
        
     public struct Coordinates
     {
@@ -61,11 +62,34 @@ public class objectsGenerator : MonoBehaviour
     Enemy[] enemies;    
     void Start()
     {
-        dayCamera = true;
-        thermalCamera = false;
         enemies = new Enemy[4];
         inputData();        
         processData();
+
+        dayCamera = true;
+        thermalCamera = false;
+
+        _selectCamera = GameObject.Find("Player");
+        selectCamera = _selectCamera.GetComponent<selectCamera>();
+        //selectCamera._day.SetActive(true);  
+    }
+    void cameraActive()
+    {
+        if (Input.GetKeyDown(KeyCode.O))
+        {            
+            dayCamera = !dayCamera;
+            thermalCamera = !thermalCamera;
+        }
+        if (dayCamera == true)
+        {
+            selectCamera._day.SetActive(true);                
+            selectCamera._thermal.SetActive(false);
+        }                                                
+        if (thermalCamera == true)
+        {
+            selectCamera._thermal.SetActive(true);                
+            selectCamera._day.SetActive(false);
+        } 
     }
     void Update()
     {
@@ -215,25 +239,6 @@ public class objectsGenerator : MonoBehaviour
                     break;
             }
             Debug.Log("Enemies: " + (enemies.Length-1));
-        }
-    }
-    void cameraActive()
-    {
-        if (Input.GetKeyDown(KeyCode.O))
-        {            
-            dayCamera = !dayCamera;
-            thermalCamera = !thermalCamera;
-
-            if (dayCamera == true)
-            {
-                _day.SetActive(true);
-                _thermal.SetActive(false);
-            }                                           
-            if (thermalCamera == true)
-            {
-                _thermal.SetActive(true);
-                _day.SetActive(false);
-            }        
         }
     }
     void spawnPlayerTrajectory(Enemy enemy)
