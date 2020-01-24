@@ -81,6 +81,7 @@ ExportedObj/
 *.physicsMaterial2D
 *.rar
 *.unity
+*.hdr
 
 ## Unity ##
 
