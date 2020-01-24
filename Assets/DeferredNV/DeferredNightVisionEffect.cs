@@ -27,9 +27,6 @@ public class DeferredNightVisionEffect : MonoBehaviour {
 	Material m_Material;
 	Shader m_Shader;
 
-	[Tooltip("Do we want to apply a vignette to the edges of the screen?")]
-	public bool useVignetting = true;
-
 	public Shader NightVisionShader
 	{
 		get { return m_Shader; }
@@ -47,8 +44,7 @@ public class DeferredNightVisionEffect : MonoBehaviour {
 		if (m_Shader == null)
 		{
 			m_Shader = Shader.Find("Custom/DeferredNightVisionShader");
-		}
-		
+		}		
 		if (m_Material == null && m_Shader != null && m_Shader.isSupported)
 		{
 			m_Material = CreateMaterial(m_Shader);
@@ -74,21 +70,14 @@ public class DeferredNightVisionEffect : MonoBehaviour {
 
 		m_Material.SetVector("_NVColor", m_NVColor);
 
-		m_Material.SetVector("_TargetWhiteColor", m_TargetBleachColor);
+		m_Material.SetVector("_TargetWhiteColor", m_TargetBleachColor);		
 
 		m_Material.SetFloat("_BaseLightingContribution", m_baseLightingContribution);
-
+		
 		m_Material.SetFloat("_LightSensitivityMultiplier", m_LightSensitivityMultiplier);
 
 		// State switching		
 		m_Material.shaderKeywords = null;
-
-		if(useVignetting)
-		{
-			Shader.EnableKeyword("USE_VIGNETTE");
-		} else {
-			Shader.DisableKeyword("USE_VIGNETTE");
-		}
 	}
 	void OnEnable()
 	{

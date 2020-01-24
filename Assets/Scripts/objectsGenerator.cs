@@ -17,7 +17,6 @@ public class objectsGenerator : MonoBehaviour
     [Header("Objects")]
     public GameObject player; // armazena prefab dos players
     GameObject _selectCamera;
-    // public GameObject _thermal;
     public GameObject enemyMachineGun; // armazena prefab das trincheiras
     public GameObject enemyVehicle; // armazena prefab dos veículos
     public GameObject enemiesSoldiers; // armazena prefab dos soldados
@@ -68,29 +67,9 @@ public class objectsGenerator : MonoBehaviour
 
         dayCamera = true;
         thermalCamera = false;
-
         _selectCamera = GameObject.Find("Player");
-        selectCamera = _selectCamera.GetComponent<selectCamera>();
-        //selectCamera._day.SetActive(true);  
-    }
-    void cameraActive()
-    {
-        if (Input.GetKeyDown(KeyCode.O))
-        {            
-            dayCamera = !dayCamera;
-            thermalCamera = !thermalCamera;
-        }
-        if (dayCamera == true)
-        {
-            selectCamera._day.SetActive(true);                
-            selectCamera._thermal.SetActive(false);
-        }                                                
-        if (thermalCamera == true)
-        {
-            selectCamera._thermal.SetActive(true);                
-            selectCamera._day.SetActive(false);
-        } 
-    }
+        selectCamera = _selectCamera.GetComponent<selectCamera>();        
+    }    
     void Update()
     {
         cameraActive();
@@ -239,6 +218,24 @@ public class objectsGenerator : MonoBehaviour
                     break;
             }
             Debug.Log("Enemies: " + (enemies.Length-1));
+        }
+    }
+    void cameraActive()
+    {
+        if (Input.GetKeyDown(KeyCode.O))
+        {            
+            dayCamera = !dayCamera;
+            thermalCamera = !thermalCamera;
+        }
+        if (dayCamera == true)
+        {
+            selectCamera._day.SetActive(true);                
+            selectCamera._thermal.SetActive(false);
+        }                                                
+        if (thermalCamera == true)
+        {
+            selectCamera._thermal.SetActive(true);                
+            selectCamera._day.SetActive(false);
         }
     }
     void spawnPlayerTrajectory(Enemy enemy)
