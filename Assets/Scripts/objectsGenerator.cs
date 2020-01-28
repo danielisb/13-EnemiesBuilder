@@ -245,14 +245,14 @@ public class objectsGenerator : MonoBehaviour
         if (thermalCamera == true)
         {            
             selectCamera._thermal.SetActive(true);                
-            selectCamera._thermal.SetActive(false);
+            selectCamera._day.SetActive(false);
             cam = selectCamera._thermal.GetComponent<Camera>();
             
             if (Input.GetKeyDown(KeyCode.I))
                 cam.fieldOfView = 4;
                 
             if (Input.GetKeyDown(KeyCode.K))
-                cam.fieldOfView = +10;
+                cam.fieldOfView = cam.fieldOfView +10;
         }        
     }
     void spawnPlayerTrajectory(Enemy enemy)
