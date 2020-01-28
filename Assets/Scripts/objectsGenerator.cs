@@ -167,7 +167,7 @@ public class objectsGenerator : MonoBehaviour
         enemies[i].effectiveAction = Behavior.Shoot;
         // i++;
         // enemies[i].type = Type.Vehicle;
-        // enemies[i].position.x = -67f;
+        // enemies[i].position.4xx = -67f;
         // enemies[i].position.y = 0f;
         // enemies[i].position.z = -76f;
         // enemies[i].rotation.x = 0f;
@@ -245,8 +245,8 @@ public class objectsGenerator : MonoBehaviour
         if (thermalCamera == true)
         {            
             selectCamera._thermal.SetActive(true);                
-            selectCamera._day.SetActive(false);
-            cam = selectCamera._day.GetComponent<Camera>();
+            selectCamera._thermal.SetActive(false);
+            cam = selectCamera._thermal.GetComponent<Camera>();
             
             if (Input.GetKeyDown(KeyCode.I))
                 cam.fieldOfView = 4;
