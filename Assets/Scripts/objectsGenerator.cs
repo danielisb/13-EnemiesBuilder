@@ -25,7 +25,8 @@ public class objectsGenerator : MonoBehaviour
     GameObject genObject; // gameObject criado dinamicamente para instanciar prefabs nos locais predefinidos
     GameObject prefabGenerator; // armazena e instancia prefabs dinamicamente
     GameObject _selectCamera;
-    selectCamera selectCamera;    
+    selectCamera selectCamera;
+    GameObject optic;
        
     public struct Coordinates
     {
@@ -72,7 +73,7 @@ public class objectsGenerator : MonoBehaviour
     }    
     void Update()
     {
-        cameraActive();
+        cameraController();
     }
     void inputData() // Recebe dados de entrada
     {
@@ -220,23 +221,39 @@ public class objectsGenerator : MonoBehaviour
             Debug.Log("Enemies: " + (enemies.Length-1));
         }
     }
-    void cameraActive()
+    void cameraController()
     {
+        Camera cam;
+
         if (Input.GetKeyDown(KeyCode.O))
         {            
             dayCamera = !dayCamera;
             thermalCamera = !thermalCamera;
         }
         if (dayCamera == true)
-        {
+        {            
             selectCamera._day.SetActive(true);                
-            selectCamera._thermal.SetActive(false);
+            selectCamera._thermal.SetActive(false);            
+            cam = selectCamera._day.GetComponent<Camera>();
+            
+            if (Input.GetKeyDown(KeyCode.I))
+                cam.fieldOfView = 4;
+
+            if (Input.GetKeyDown(KeyCode.K))
+                cam.fieldOfView = cam.fieldOfView +10;
         }                                                
         if (thermalCamera == true)
-        {
+        {            
             selectCamera._thermal.SetActive(true);                
             selectCamera._day.SetActive(false);
-        }
+            cam = selectCamera._day.GetComponent<Camera>();
+            
+            if (Input.GetKeyDown(KeyCode.I))
+                cam.fieldOfView = 4;
+                
+            if (Input.GetKeyDown(KeyCode.K))
+                cam.fieldOfView = +10;
+        }        
     }
     void spawnPlayerTrajectory(Enemy enemy)
     {
