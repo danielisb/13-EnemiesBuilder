@@ -15,8 +15,7 @@ public class objectsGenerator : MonoBehaviour
     public bool thermalCamera;    
 
     [Header("Objects")]
-    public GameObject player; // armazena prefab dos players
-    GameObject _selectCamera;
+    public GameObject player; // armazena prefab dos players    
     public GameObject enemyMachineGun; // armazena prefab das trincheiras
     public GameObject enemyVehicle; // armazena prefab dos veículos
     public GameObject enemiesSoldiers; // armazena prefab dos soldados
@@ -25,7 +24,8 @@ public class objectsGenerator : MonoBehaviour
     //-----------------------------------
     GameObject genObject; // gameObject criado dinamicamente para instanciar prefabs nos locais predefinidos
     GameObject prefabGenerator; // armazena e instancia prefabs dinamicamente
-    selectCamera selectCamera;
+    GameObject _selectCamera;
+    selectCamera selectCamera;    
        
     public struct Coordinates
     {
@@ -68,7 +68,7 @@ public class objectsGenerator : MonoBehaviour
         dayCamera = true;
         thermalCamera = false;
         _selectCamera = GameObject.Find("Player");
-        selectCamera = _selectCamera.GetComponent<selectCamera>();        
+        selectCamera = _selectCamera.GetComponent<selectCamera>();
     }    
     void Update()
     {

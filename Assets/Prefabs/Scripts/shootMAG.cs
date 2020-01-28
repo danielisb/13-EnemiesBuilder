@@ -7,6 +7,7 @@ public class shootMAG : MonoBehaviour
     private ParticleSystem MAGfire;
     public Animator animator;
     public Transform BulletM4a1;
+    public GameObject localBullet;
     AudioSource _shootingSound;
     void Start()
     {
@@ -28,11 +29,12 @@ public class shootMAG : MonoBehaviour
     {
         print("is shooting");
         MAGfire.Play();
-        var bullet = Instantiate(BulletM4a1);
-            bullet.parent = transform;
-            bullet.transform.localPosition = new Vector3();
-            bullet.rotation = new Quaternion();
-            bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * 100f;
+        var bullet = Instantiate(BulletM4a1, localBullet.transform.position, localBullet.transform.rotation);
+            //bullet.parent = transform;
+            //bullet = bullet.transform.localPosition;
+            //bullet.transform.localPosition = new Vector3();
+            //bullet.rotation = new Quaternion();
+            bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * 200f;
             bullet.GetComponent<Rigidbody>().AddForce(bullet.transform.forward * 300f);
         PlayShootingAudio();
     }
