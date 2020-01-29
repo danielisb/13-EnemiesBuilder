@@ -30,8 +30,7 @@ public class objectsGenerator : MonoBehaviour
     GameObject optic;
     selectCamera selectCamera;
     VehicleModel _controller;
-    
-       
+           
     public struct Coordinates
     {
         public float x;
@@ -264,7 +263,6 @@ public class objectsGenerator : MonoBehaviour
             dayCamera = !dayCamera;
             thermalCamera = !thermalCamera;
         }        
-
         if (dayCamera)
         {            
             selectCamera._day.SetActive(true);                
@@ -276,7 +274,6 @@ public class objectsGenerator : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.K))
                 cam.fieldOfView = cam.fieldOfView +10;
         }
-
         if (thermalCamera)
         {            
             selectCamera._thermal.SetActive(true);                
@@ -318,18 +315,30 @@ public class objectsGenerator : MonoBehaviour
     void spawnPlayer(Enemy enemy)
     {
         genObject = new GameObject();
-        genObject.transform.position = new Vector3(enemy.position.x, enemy.position.y, enemy.position.z);
-        prefabGenerator = Instantiate(player, genObject.transform.position, Quaternion.identity);
+        genObject.transform.position = new Vector3(enemy.position.x, 10f, enemy.position.z);
+
+        RaycastHit hit;
+            Ray newRay = new Ray(genObject.transform.position, Vector3.down);
+            Debug.DrawRay (genObject.transform.position, Vector3.down*10, Color.black);
+            Physics.Raycast (newRay, out hit, 10);
+        
+        prefabGenerator = Instantiate(player, hit.point, Quaternion.identity);
         prefabGenerator.transform.eulerAngles = new Vector3(0f, enemy.rotation.y, 0f);
         prefabGenerator.name = "Player";
-        Destroy(genObject);        
+        Destroy(genObject);
         spawnPlayerTrajectory(enemy);        
     }
     void spawnSoldiers(Enemy enemy)
-    {
+    {        
         genObject = new GameObject();
-        genObject.transform.position = new Vector3(enemy.position.x, enemy.position.y, enemy.position.z);
-        prefabGenerator = Instantiate(enemiesSoldiers, genObject.transform.position, Quaternion.identity);
+        genObject.transform.position = new Vector3(enemy.position.x, 10f, enemy.position.z);
+
+        RaycastHit hit;
+            Ray newRay = new Ray(genObject.transform.position, Vector3.down);
+            Debug.DrawRay (genObject.transform.position, Vector3.down*10, Color.black);
+            Physics.Raycast (newRay, out hit, 10);
+
+        prefabGenerator = Instantiate(enemiesSoldiers, hit.point, Quaternion.identity);
         prefabGenerator.transform.eulerAngles = new Vector3(0f, enemy.rotation.y, 0f);
         prefabGenerator.name = "Soldiers";
         Destroy(genObject);
@@ -342,23 +351,35 @@ public class objectsGenerator : MonoBehaviour
     void spawnVehicle(Enemy enemy)
     {
         genObject = new GameObject();
-        genObject.transform.position = new Vector3(enemy.position.x, enemy.position.y, enemy.position.z);
-        prefabGenerator = Instantiate(enemyVehicle, genObject.transform.position, Quaternion.identity);
+        genObject.transform.position = new Vector3(enemy.position.x, 10f, enemy.position.z);
+
+        RaycastHit hit;
+            Ray newRay = new Ray(genObject.transform.position, Vector3.down);
+            Debug.DrawRay (genObject.transform.position, Vector3.down*10, Color.black);
+            Physics.Raycast (newRay, out hit, 10);
+
+        prefabGenerator = Instantiate(enemyVehicle, hit.point, Quaternion.identity);
         prefabGenerator.transform.eulerAngles = new Vector3(0f, enemy.rotation.y, 0f);
         prefabGenerator.name = "Vehicle";
-        Destroy(genObject);        
+        Destroy(genObject);
         var settings = enemyVehicle.GetComponent<vehiclesManager>();
             settings.detectionRadius = enemy.identificationRange;
             settings.effectiveDistance = enemy.weaponRange;
             settings.recognitionAction = enemy.identificationAction;
             settings.effectiveAction = enemy.effectiveAction;
-        spawnEnemyTrajectory(enemy); // spawn enemy trajectory inside vehicleManger            
+        spawnEnemyTrajectory(enemy);
     }
     void spawnMachineGun(Enemy enemy)
     {
-        genObject = new GameObject();
-        genObject.transform.position = new Vector3(enemy.position.x, enemy.position.y, enemy.position.z);
-        prefabGenerator = Instantiate(enemyMachineGun, genObject.transform.position, Quaternion.identity);
+        genObject = new GameObject();        
+        genObject.transform.position = new Vector3(enemy.position.x, 10f, enemy.position.z);
+
+        RaycastHit hit;
+            Ray newRay = new Ray(genObject.transform.position, Vector3.down);
+            Debug.DrawRay (genObject.transform.position, Vector3.down*10, Color.black);
+            Physics.Raycast (newRay, out hit, 10);
+
+        prefabGenerator = Instantiate(enemyMachineGun, hit.point, Quaternion.identity);
         prefabGenerator.transform.eulerAngles = new Vector3(0f, enemy.rotation.y, 0f);
         prefabGenerator.name = "MachineGun";
         Destroy(genObject);

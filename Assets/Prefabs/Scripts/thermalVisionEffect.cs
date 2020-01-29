@@ -6,7 +6,7 @@ using System.Collections;
 /// <summary>
 /// Deferred night vision effect.
 /// </summary>
-public class DeferredNightVisionEffect : MonoBehaviour {
+public class thermalVisionEffect : MonoBehaviour {
 
 	[SerializeField]
 	[Tooltip("The main color of the NV effect")]
