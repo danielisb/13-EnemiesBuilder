@@ -35,7 +35,7 @@ public class shootMAG : MonoBehaviour
             //bullet.transform.localPosition = new Vector3();
             //bullet.rotation = new Quaternion();
             bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * 200f;
-            bullet.GetComponent<Rigidbody>().AddForce(bullet.transform.forward * 300f);
+            bullet.GetComponent<Rigidbody>().AddForce(bullet.transform.forward * 1000f);
         PlayShootingAudio();
     }
     void PlayShootingAudio()

@@ -42,7 +42,7 @@ public class VehicleModel : MonoBehaviour
 	CarController _carController;
 	vehiclesManager _vehiclesManager;
 	float _integral;
-	bool _drive;
+	public bool _drive;
 
 	//------------------------------
 	void Awake()

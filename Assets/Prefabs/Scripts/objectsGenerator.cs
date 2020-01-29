@@ -5,7 +5,8 @@ using UnityEngine;
 public class objectsGenerator : MonoBehaviour
 {
     [Header("Player Settings")]
-    public bool move; // faz o veículo (Player) andar
+    public bool move;
+    public bool stop;
 
     [Range(-20, 90)]
 	public float playerVelocity;
@@ -25,8 +26,11 @@ public class objectsGenerator : MonoBehaviour
     GameObject genObject; // gameObject criado dinamicamente para instanciar prefabs nos locais predefinidos
     GameObject prefabGenerator; // armazena e instancia prefabs dinamicamente
     GameObject _selectCamera;
-    selectCamera selectCamera;
+    GameObject playerController;
     GameObject optic;
+    selectCamera selectCamera;
+    VehicleModel _controller;
+    
        
     public struct Coordinates
     {
@@ -70,63 +74,73 @@ public class objectsGenerator : MonoBehaviour
         thermalCamera = false;
         _selectCamera = GameObject.Find("Player");
         selectCamera = _selectCamera.GetComponent<selectCamera>();
-    }    
+
+        playerController = GameObject.Find("Player");        
+        _controller = playerController.GetComponent<VehicleModel>();        
+    }
     void Update()
     {
+        playerControllers();
         cameraController();
     }
     void inputData() // Recebe dados de entrada
     {
         int i = 0;        
         enemies[i].type = Type.Player;
-        enemies[i].position.x = 161f;
-        enemies[i].position.y = 0f;
-        enemies[i].position.z = -87f;
-        enemies[i].rotation.x = 0f;
-        enemies[i].rotation.y = 358.7f;
-        enemies[i].rotation.z = 0;
-        enemies[i].trajectory = new Coordinates[12];
-        enemies[i].trajectory[0].x = 159.2f;
-        enemies[i].trajectory[0].y = 1.5f;
-        enemies[i].trajectory[0].z = -79.7f;
-        enemies[i].trajectory[1].x = 153.5f;
-        enemies[i].trajectory[1].y = 1.5f;
-        enemies[i].trajectory[1].z = 11.4f;
-        enemies[i].trajectory[2].x = 128.7f;
-        enemies[i].trajectory[2].y = 1.5f;
-        enemies[i].trajectory[2].z = 68.2f;
-        enemies[i].trajectory[3].x = 71.2f;        
-        enemies[i].trajectory[3].y = 1.5f;
-        enemies[i].trajectory[3].z = 21.5f;
-        enemies[i].trajectory[4].x = 31.4f;
-        enemies[i].trajectory[4].y = 1.5f;
-        enemies[i].trajectory[4].z = -32.6f;
-		enemies[i].trajectory[5].x = -11.3f;
-        enemies[i].trajectory[5].y = 1.5f;
-        enemies[i].trajectory[5].z = -53.9f;
-		enemies[i].trajectory[6].x = -46.4f;
-        enemies[i].trajectory[6].y = 1.5f;
-        enemies[i].trajectory[6].z = -26.1f;
-        enemies[i].trajectory[7].x = -39.3f;
-        enemies[i].trajectory[7].y = 1.5f;
-        enemies[i].trajectory[7].z = 21.5f;
-        enemies[i].trajectory[8].x = -71.4f;
-        enemies[i].trajectory[8].y = 1.5f;
-        enemies[i].trajectory[8].z = 52.7f;
-        enemies[i].trajectory[9].x = -109.9f;
-        enemies[i].trajectory[9].y = 1.5f;
-        enemies[i].trajectory[9].z = -1.2f;
-        enemies[i].trajectory[10].x = -142f;        
-        enemies[i].trajectory[10].y = 1.5f;
-        enemies[i].trajectory[10].z = -29.9f;
-        enemies[i].trajectory[11].x = -192.8f;
-        enemies[i].trajectory[11].y = 1.5f;
-        enemies[i].trajectory[11].z = -64.4f;
+        enemies[i].position.x = 401.2f;
+        enemies[i].position.y = 1.1f;
+        enemies[i].position.z = -299f;
+        enemies[i].rotation.x = -05f;
+        enemies[i].rotation.y = 5.9f;
+        enemies[i].rotation.z = -299;
+        enemies[i].trajectory = new Coordinates[14];
+        enemies[i].trajectory[0].x = 392f;
+        enemies[i].trajectory[0].y = 2f;
+        enemies[i].trajectory[0].z = -238f;
+        enemies[i].trajectory[1].x = 356f;
+        enemies[i].trajectory[1].y = 2f;
+        enemies[i].trajectory[1].z = -98f;
+        enemies[i].trajectory[2].x = 303f;
+        enemies[i].trajectory[2].y = 2f;
+        enemies[i].trajectory[2].z = 42f;
+        enemies[i].trajectory[3].x = 258f;        
+        enemies[i].trajectory[3].y = 2f;
+        enemies[i].trajectory[3].z = 137f;
+        enemies[i].trajectory[4].x = 169f;
+        enemies[i].trajectory[4].y = 2f;
+        enemies[i].trajectory[4].z = 195f;
+		enemies[i].trajectory[5].x = 97f;
+        enemies[i].trajectory[5].y = 2f;
+        enemies[i].trajectory[5].z = 162f;
+		enemies[i].trajectory[6].x = -1f;
+        enemies[i].trajectory[6].y = 2f;
+        enemies[i].trajectory[6].z = 114f;
+        enemies[i].trajectory[7].x = -73f;
+        enemies[i].trajectory[7].y = 2f;
+        enemies[i].trajectory[7].z = 24f;
+        enemies[i].trajectory[8].x = -153f;
+        enemies[i].trajectory[8].y = 2f;
+        enemies[i].trajectory[8].z = -56f;
+        enemies[i].trajectory[9].x = -298f;
+        enemies[i].trajectory[9].y = 2f;
+        enemies[i].trajectory[9].z = -128f;
+        enemies[i].trajectory[10].x = -395f;        
+        enemies[i].trajectory[10].y = 2f;
+        enemies[i].trajectory[10].z = -128f;
+        enemies[i].trajectory[11].x = -417f;
+        enemies[i].trajectory[11].y = 2f;
+        enemies[i].trajectory[11].z = -24f;
+        enemies[i].trajectory[12].x = -417f;
+        enemies[i].trajectory[12].y = 2f;
+        enemies[i].trajectory[12].z = 115f;
+        enemies[i].trajectory[13].x = -409f;
+        enemies[i].trajectory[13].y = 2f;
+        enemies[i].trajectory[13].z = 288f;
         i++;
         enemies[i].type = Type.MachineGun;
-        enemies[i].position.x = 154f;
+        enemies[i].position.x = 356f;
         enemies[i].position.y = 0f;
-        enemies[i].position.z = 73f;
+        enemies[i].position.z = 57f;
         enemies[i].rotation.x = 0f;
         enemies[i].rotation.y = 162.18f;
         enemies[i].rotation.z = 0;
@@ -136,9 +150,9 @@ public class objectsGenerator : MonoBehaviour
         enemies[i].effectiveAction = Behavior.Shoot;
         i++;
         enemies[i].type = Type.Vehicle;
-        enemies[i].position.x = 50f;
+        enemies[i].position.x = 255f;
         enemies[i].position.y = 0f;
-        enemies[i].position.z = 70f;
+        enemies[i].position.z = 188f;
         enemies[i].rotation.x = 0f;
         enemies[i].rotation.y = 104.38f;
         enemies[i].rotation.z = 0;
@@ -147,19 +161,19 @@ public class objectsGenerator : MonoBehaviour
         enemies[i].identificationAction = Behavior.Move;
         enemies[i].effectiveAction = Behavior.Shoot;
         enemies[i].trajectory = new Coordinates[2];
-        enemies[i].trajectory[0].x = 29.7f;
+        enemies[i].trajectory[0].x = 265.7f;
         enemies[i].trajectory[0].y = 1.5f;
-        enemies[i].trajectory[0].z = 82.4f;
-        enemies[i].trajectory[1].x = 25f;
+        enemies[i].trajectory[0].z = 184.4f;
+        enemies[i].trajectory[1].x = 197.7f;
         enemies[i].trajectory[1].y = 1.5f;
-        enemies[i].trajectory[1].z = 19.6f;
+        enemies[i].trajectory[1].z = 103.1f;
         i++;
         enemies[i].type = Type.Soldier;
-        enemies[i].position.x = 64f;
+        enemies[i].position.x = 63.2f;
         enemies[i].position.y = 0f;
-        enemies[i].position.z = -76f;
+        enemies[i].position.z = 209.2f;
         enemies[i].rotation.x = 0f;
-        enemies[i].rotation.y = 358.52f;
+        enemies[i].rotation.y = 501.5f;
         enemies[i].rotation.z = 0;
         enemies[i].identificationRange = 200f;
         enemies[i].weaponRange = 70f;
@@ -221,6 +235,26 @@ public class objectsGenerator : MonoBehaviour
             Debug.Log("Enemies: " + (enemies.Length-1));
         }
     }
+    void playerControllers()
+    {
+        _controller.trajectory = objTrajectory; // get gameobject of player trajectory
+        _controller._targetVelocity = playerVelocity; // velocity in run time
+
+        if (_controller.trajectory != null && move) // set player trajectory in VehicleModel
+		{
+			_controller.SetTrajectory(new GameObjectWrapper(_controller.trajectory));
+			_controller.Drive();
+		}
+        if (move)        
+            _controller._drive = true;  
+               
+        if (stop && move)
+        {
+            move = false;
+            stop = false;
+            _controller._drive = false;
+        }
+    }
     void cameraController()
     {
         Camera cam;
@@ -229,8 +263,9 @@ public class objectsGenerator : MonoBehaviour
         {            
             dayCamera = !dayCamera;
             thermalCamera = !thermalCamera;
-        }
-        if (dayCamera == true)
+        }        
+
+        if (dayCamera)
         {            
             selectCamera._day.SetActive(true);                
             selectCamera._thermal.SetActive(false);            
@@ -238,19 +273,18 @@ public class objectsGenerator : MonoBehaviour
             
             if (Input.GetKeyDown(KeyCode.I))
                 cam.fieldOfView = 4;
-
             if (Input.GetKeyDown(KeyCode.K))
                 cam.fieldOfView = cam.fieldOfView +10;
-        }                                                
-        if (thermalCamera == true)
+        }
+
+        if (thermalCamera)
         {            
             selectCamera._thermal.SetActive(true);                
             selectCamera._day.SetActive(false);
             cam = selectCamera._thermal.GetComponent<Camera>();
             
             if (Input.GetKeyDown(KeyCode.I))
-                cam.fieldOfView = 4;
-                
+                cam.fieldOfView = 4;                
             if (Input.GetKeyDown(KeyCode.K))
                 cam.fieldOfView = cam.fieldOfView +10;
         }        
@@ -288,9 +322,7 @@ public class objectsGenerator : MonoBehaviour
         prefabGenerator = Instantiate(player, genObject.transform.position, Quaternion.identity);
         prefabGenerator.transform.eulerAngles = new Vector3(0f, enemy.rotation.y, 0f);
         prefabGenerator.name = "Player";
-        Destroy(genObject);
-        var playerOBJ = player.GetComponent<controlVehicle>();
-            playerOBJ.objsGenerator = this.gameObject;
+        Destroy(genObject);        
         spawnPlayerTrajectory(enemy);        
     }
     void spawnSoldiers(Enemy enemy)
