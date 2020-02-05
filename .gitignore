@@ -82,6 +82,15 @@ ExportedObj/
 *.rar
 *.unity
 *.hdr
+*.dll
+*.gif
+*.lwo
+*.mtl
+*.tmd
+*.session
+*.raw
+*.r16
+*.backup
 
 ## Unity ##
 
