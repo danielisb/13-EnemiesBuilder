@@ -1,0 +1,135 @@
+fileFormatVersion: 2
+guid: 3898adcb92ca35242bcfc29b431c1e58
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: APC V01 MG Base LOW
+    100004: APC V01 MG Gun HI
+    100006: APC V01 MG Gun LOW
+    100008: APC V01 MG Holder HI
+    100010: APC V01 MG Holder LOW
+    100012: APC V01 MG Base HI
+    400000: //RootNode
+    400002: APC V01 MG Base LOW
+    400004: APC V01 MG Gun HI
+    400006: APC V01 MG Gun LOW
+    400008: APC V01 MG Holder HI
+    400010: APC V01 MG Holder LOW
+    400012: APC V01 MG Base HI
+    2300000: //RootNode
+    2300002: APC V01 MG Base LOW
+    2300004: APC V01 MG Gun HI
+    2300006: APC V01 MG Gun LOW
+    2300008: APC V01 MG Holder HI
+    2300010: APC V01 MG Holder LOW
+    2300012: APC V01 MG Base HI
+    3300000: //RootNode
+    3300002: APC V01 MG Base LOW
+    3300004: APC V01 MG Gun HI
+    3300006: APC V01 MG Gun LOW
+    3300008: APC V01 MG Holder HI
+    3300010: APC V01 MG Holder LOW
+    3300012: APC V01 MG Base HI
+    4300000: APC V01 MachGun LOW
+    4300002: APC V01 MachGun HI
+    4300004: APC V01 MG Base HI
+    4300006: APC V01 MG Base LOW
+    4300008: APC V01 MG Gun HI
+    4300010: APC V01 MG Gun LOW
+    4300012: APC V01 MG Holder HI
+    4300014: APC V01 MG Holder LOW
+    4300016: C V01 RT Radar LOW C01
+    4300018: APC V01 Handle02 HI
+    4300020: APC V01 Handle02 LOW
+    4300022: APC V01 Handle01 HI
+    4300024: APC V01 Handle01 LOW
+    4300026: APC V01 Handle03 HI
+    4300028: APC V01 Handle03 LOW
+    4300030: APC V01 Cable HI
+    4300032: APC V01 Cable LOW
+    4300034: APC_V01_Plate_001
+    4300036: APC V01 License Plate
+    4300038: APC V01 Antenne C01
+    4300040: APC V01 RT Holder HI C01
+    4300042: APC V01 RT Holder LOW C01
+    4300044: C V01 RT Radar HI C01
+    4300046: APC V01 Main HI
+    4300048: APC V01 Main LOW
+    4300050: APC V01 Slat Armor HI
+    4300052: APC V01 Slat Armor LOW
+    4300054: APC V01 RT Cam HI C01
+    4300056: APC V01 RT Cam LOW C01
+    4300058: APC V01 Shovels
+    4300060: APC V01 Jerrycan HI
+    4300062: APC V01 Jerrycan LOW
+    4300064: APC V01 Gas Holder HI
+    4300066: APC V01 Gas Holder LOW
+    4300068: APC V01 RT Rockets HI
+    4300070: APC V01 RT Rockets LOW
+    4300072: APC V01 RT Rotate HI
+    4300074: APC V01 RT Rotate LOW
+    4300076: APC V01 Slate
+    4300078: APC V01 Wheel Susp
+    4300080: APC V01 Wheel Rot
+    4300082: APC V01 Wheel HI
+    4300084: Saucer
+    11100000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 1
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 1
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 0
+  tangentSpace:
+    normalSmoothAngle: 50
+    splitTangentsAcrossUV: 1
+    normalImportMode: 1
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
