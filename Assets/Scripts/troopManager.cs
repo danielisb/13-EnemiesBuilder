@@ -8,20 +8,26 @@ public class troopManager : MonoBehaviour
     [Header("Objects")]
     public GameObject soldierGO1;
     public GameObject soldierGO2;
-    public GameObject enemyTarget; // GameObject para alvo do inimigo
+    public GameObject enemyTarget;
+    
     public soldiersManager settings1;
     public soldiersManager settings2;
     
     [Header("Settings")]
     [Range(0, 700)]
     public float detectionRadius; // Raio de detecção/reconhecimento
+    
     [Range(0, 700)]
     public float effectiveDistance; // Raio de distância Efetiva
+
     public soldiersManager.Animations recognitionAction; // seletor de animação específica 
     public soldiersManager.Animations effectiveAction; // seletor de animação específica
-    public objectsGenerator.Behavior recognitionActionOBJ; // seletor de animação específica 
-    public objectsGenerator.Behavior effectiveActionOBJ; // seletor de animação específica
+
+    public sceneBuilder.Behavior recognitionActionOBJ; // seletor de animação específica 
+    public sceneBuilder.Behavior effectiveActionOBJ; // seletor de animação específica
+
     //---------------------------------------------------------------------------------------------
+
     void Awake()
     {
         settings1 = soldierGO1.GetComponent<soldiersManager>();
@@ -51,31 +57,32 @@ public class troopManager : MonoBehaviour
     {
         switch (recognitionActionOBJ)
         {
-            case objectsGenerator.Behavior.Idle:
+            case sceneBuilder.Behavior.Idle:
                 recognitionAction = soldiersManager.Animations.CrIdle;
                 break;
-            case objectsGenerator.Behavior.Vigilant:
+            case sceneBuilder.Behavior.Vigilant:
                 recognitionAction = soldiersManager.Animations.Vigilant;
                 break;
-            case objectsGenerator.Behavior.Shoot:
+            case sceneBuilder.Behavior.Shoot:
                 recognitionAction = soldiersManager.Animations.CrFire;
                 break;
-            case objectsGenerator.Behavior.Move:
+            case sceneBuilder.Behavior.Move:
                 recognitionAction = soldiersManager.Animations.UpRun;
                 break;
         }
+        
         switch (effectiveActionOBJ)
         {
-            case objectsGenerator.Behavior.Idle:
+            case sceneBuilder.Behavior.Idle:
                 effectiveAction = soldiersManager.Animations.CrIdle;
                 break;
-            case objectsGenerator.Behavior.Vigilant:
+            case sceneBuilder.Behavior.Vigilant:
                 effectiveAction = soldiersManager.Animations.Vigilant;
                 break;
-            case objectsGenerator.Behavior.Shoot:
+            case sceneBuilder.Behavior.Shoot:
                 effectiveAction = soldiersManager.Animations.CrFire;
                 break;
-            case objectsGenerator.Behavior.Move:
+            case sceneBuilder.Behavior.Move:
                 effectiveAction = soldiersManager.Animations.UpRun;
                 break;
         }

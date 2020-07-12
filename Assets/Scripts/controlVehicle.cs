@@ -5,23 +5,27 @@ using Models;
 
 public class controlVehicle : MonoBehaviour 
 {
-	public GameObject objsGenerator;
+	public GameObject sceneBuilderGO;
 	public GameObject trajectory;
 	public GameObject vehicle;
-	objectsGenerator _objsGenerator;
 	public bool init;
-	VehicleModel model;	
-	bool initialized;	
+
+	sceneBuilder _sceneBuilder;
+	VehicleModel model;
+
+	bool initialized;
+
 	void Start ()
 	{
-		objsGenerator = GameObject.Find("Builder");
-		_objsGenerator = objsGenerator.GetComponent<objectsGenerator>();		
+		sceneBuilderGO = GameObject.Find("Builder");
+		_sceneBuilder = sceneBuilderGO.GetComponent<sceneBuilder>();		
 		initialized = false;
 	}
+
 	void Update () 
 	{
-		init = _objsGenerator.move;
-		trajectory = _objsGenerator.objTrajectory;
+		init = _sceneBuilder.move;
+		trajectory = _sceneBuilder.objTrajectory;
 
 		if (init == true && !initialized)
 		{	
@@ -34,9 +38,10 @@ public class controlVehicle : MonoBehaviour
 			}
 		}
 	}
+	
 	void drive()
 	{
-		model.SetDriveVelocity(_objsGenerator.playerVelocity);
+		model.SetDriveVelocity(_sceneBuilder.playerVelocity);
 		model.Drive();
 	}
 }

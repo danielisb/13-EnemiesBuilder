@@ -12,34 +12,33 @@ public class trenchManager : MonoBehaviour
 
     [Header("Settings")]
     public Transform target; // GameObject enemy
+
     [Range(0, 1400)]
     public float detectionRadius; // Raio de detecção/reconhecimento
+
     [Range(0, 1200)]
     public float effectiveDistance; // Raio de distância Efetiva
-    
-    // public enum Behavior // Comportamentos do veículo
-    // {
-    //     Idle,        
-    //     Vigilant,
-    //     Shoot,
-    //     Move,
-    // }
-    public objectsGenerator.Behavior identificationAction; // select recognition action
-    public objectsGenerator.Behavior effectiveAction; // select effective action
+
+    public sceneBuilder.Behavior identificationAction; // select recognition action
+    public sceneBuilder.Behavior effectiveAction; // select effective action
+
     public float elevation_z;
     public float azimuth_y;
+
     enum typeShoot // cadence shoot
     {
         Full,
     }
+
     typeShoot cadenceType; // select cadence
-    //---------------------------------------------------------------------------------------------
-    bool activeVigilant = false;
     shootMAG gettingTypeShoot; // Acessa script shootMAG
     lookAtTrench captGunbools; // capt Shoot bool from Gun_Jeep
     DetectTarget detection; // aponta para variável com distância do inimigo no script DetectTarget
-    objectsGenerator.Behavior currentState;
-    objectsGenerator playerScene;
+    sceneBuilder.Behavior currentState;
+    
+    //sceneBuilder playerScene;
+
+    bool activeVigilant = false;
     int cadenceTypeShoot;
     void opTypeShoot(bool flag) // cadence Shoot
     {
@@ -62,7 +61,7 @@ public class trenchManager : MonoBehaviour
         captTarget = GameObject.Find("Player");		
         target = captTarget.transform;
         detection.enemiesTag = target.tag; 
-        currentState = objectsGenerator.Behavior.Idle; // vehicle start in Vigilant
+        currentState = sceneBuilder.Behavior.Idle; // vehicle start in Vigilant
     }
     void Update()
     {
@@ -70,24 +69,22 @@ public class trenchManager : MonoBehaviour
 
         switch(currentState)
         {
-            case objectsGenerator.Behavior.Idle:
+            case sceneBuilder.Behavior.Idle:
                 // .activeVigilant = false;
                 opTypeShoot(false);
                 //Debug.Log("IDLE");
             break;
-            case objectsGenerator.Behavior.Vigilant:
-                // rotate turret - find enemy
+            case sceneBuilder.Behavior.Vigilant:
                 captGunbools.activeVigilant = true;
                 opTypeShoot(false);
                 //Debug.Log("VIGILANT");
             break;
-            case objectsGenerator.Behavior.Shoot:
-                // shoot weapon
+            case sceneBuilder.Behavior.Shoot:
                 opTypeShoot(true);
                 //Debug.Log("SHOOT");
             break;
             default:
-                currentState = objectsGenerator.Behavior.Idle;
+                currentState = sceneBuilder.Behavior.Idle;
             break;
         }
     }
@@ -117,7 +114,7 @@ public class trenchManager : MonoBehaviour
         }
         else
         {   // back to Vigilant
-            currentState = objectsGenerator.Behavior.Vigilant;
+            currentState = sceneBuilder.Behavior.Vigilant;
             //Debug.Log("DEFAULT");
             opTypeShoot(false);
         }

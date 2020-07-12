@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class objectsGenerator : MonoBehaviour
+public class sceneBuilder : MonoBehaviour
 {
     [Header("Player Settings")]
     public bool move; // faz o veículo (Player) andar
@@ -12,9 +12,11 @@ public class objectsGenerator : MonoBehaviour
 
     [Header("Objects")]
     public GameObject player; // armazena prefab dos players
-    public GameObject enemyMachineGun; // armazena prefab das trincheiras
-    public GameObject enemyVehicle; // armazena prefab dos veículos
-    public GameObject enemiesSoldiers; // armazena prefab dos soldados
+
+    [Header("Enemies")]
+    public GameObject machineGun; // armazena prefab das trincheiras
+    public GameObject vehicle; // armazena prefab dos veículos
+    public GameObject soldier; // armazena prefab dos soldados
     public GameObject objTrajectory; // armazena trajectory criado na execução
     public GameObject objEnemyTrajectory; // armazena enemyTrajectory criado na execução
     //-----------------------------------
@@ -64,7 +66,7 @@ public class objectsGenerator : MonoBehaviour
         int i = 0;        
         enemies[i].type = Type.Player;
         enemies[i].position.x = 205f;
-        enemies[i].position.y = 10f;
+        enemies[i].position.y = 5f;
         enemies[i].position.z = 94f;
         enemies[i].rotation.x = 0f;
         enemies[i].rotation.y = 370f;
@@ -210,9 +212,9 @@ public class objectsGenerator : MonoBehaviour
                 case Type.Soldier:
                     spawnSoldiers(enemies[i]);
                     break;
-            }
-            Debug.Log("Enemies: " + (enemies.Length-1));
-        }
+            }            
+        }        
+        Debug.Log("Enemies: " + (enemies.Length-1));
     }
 
     void spawnPlayerTrajectory(Enemy enemy)
@@ -220,6 +222,7 @@ public class objectsGenerator : MonoBehaviour
         objTrajectory = new GameObject();
         objTrajectory.name = "Trajectory";
         objTrajectory.AddComponent<dinamicCoordinates>();
+
         for(int i=0; i<enemy.trajectory.Length; i++)
         {
             var childrensOBJ = new GameObject();
@@ -233,12 +236,15 @@ public class objectsGenerator : MonoBehaviour
     {
         genObject = new GameObject();
         genObject.transform.position = new Vector3(enemy.position.x, enemy.position.y, enemy.position.z);
+
         prefabGenerator = Instantiate(player, genObject.transform.position, Quaternion.identity);
         prefabGenerator.transform.eulerAngles = new Vector3(0f, enemy.rotation.y, 0f);
         prefabGenerator.name = "Player";
         Destroy(genObject);
+
         var playerOBJ = player.GetComponent<controlVehicle>();
-            playerOBJ.objsGenerator = this.gameObject;
+            playerOBJ.sceneBuilderGO = this.gameObject;
+
         spawnPlayerTrajectory(enemy);        
     }
 
@@ -246,11 +252,13 @@ public class objectsGenerator : MonoBehaviour
     {
         genObject = new GameObject();
         genObject.transform.position = new Vector3(enemy.position.x, enemy.position.y, enemy.position.z);
-        prefabGenerator = Instantiate(enemiesSoldiers, genObject.transform.position, Quaternion.identity);
+
+        prefabGenerator = Instantiate(soldier, genObject.transform.position, Quaternion.identity);
         prefabGenerator.transform.eulerAngles = new Vector3(0f, enemy.rotation.y, 0f);
         prefabGenerator.name = "Soldiers";
         Destroy(genObject);
-        var settings = enemiesSoldiers.GetComponent<troopManager>();
+
+        var settings = soldier.GetComponent<troopManager>();
             settings.detectionRadius = enemy.identificationRange;
             settings.effectiveDistance = enemy.weaponRange;
             settings.recognitionActionOBJ = enemy.identificationAction;
@@ -261,27 +269,32 @@ public class objectsGenerator : MonoBehaviour
     {
         genObject = new GameObject();
         genObject.transform.position = new Vector3(enemy.position.x, enemy.position.y, enemy.position.z);
-        prefabGenerator = Instantiate(enemyVehicle, genObject.transform.position, Quaternion.identity);
+
+        prefabGenerator = Instantiate(vehicle, genObject.transform.position, Quaternion.identity);
         prefabGenerator.transform.eulerAngles = new Vector3(0f, enemy.rotation.y, 0f);
         prefabGenerator.name = "Vehicle";
         Destroy(genObject);        
-        var settings = enemyVehicle.GetComponent<vehiclesManager>();
+
+        var settings = vehicle.GetComponent<vehiclesManager>();
             settings.detectionRadius = enemy.identificationRange;
             settings.effectiveDistance = enemy.weaponRange;
             settings.recognitionAction = enemy.identificationAction;
             settings.effectiveAction = enemy.effectiveAction;
-        spawnEnemyTrajectory(enemy); // spawn enemy trajectory inside vehicleManger            
+
+        spawnEnemyTrajectory(enemy);            
     }
 
     void spawnMachineGun(Enemy enemy)
     {
         genObject = new GameObject();
         genObject.transform.position = new Vector3(enemy.position.x, enemy.position.y, enemy.position.z);
-        prefabGenerator = Instantiate(enemyMachineGun, genObject.transform.position, Quaternion.identity);
+
+        prefabGenerator = Instantiate(machineGun, genObject.transform.position, Quaternion.identity);
         prefabGenerator.transform.eulerAngles = new Vector3(0f, enemy.rotation.y, 0f);
         prefabGenerator.name = "MachineGun";
         Destroy(genObject);
-        var settings = enemyMachineGun.GetComponent<trenchManager>();
+
+        var settings = machineGun.GetComponent<trenchManager>();
             settings.detectionRadius = enemy.identificationRange;
             settings.effectiveDistance = enemy.weaponRange;            
             settings.identificationAction = enemy.identificationAction;
@@ -290,9 +303,10 @@ public class objectsGenerator : MonoBehaviour
 
     void spawnEnemyTrajectory(Enemy enemy)
     {
-        objEnemyTrajectory = new GameObject();
-        objEnemyTrajectory.name = "Enemy Trajectory";
+        objEnemyTrajectory = new GameObject();        
         objEnemyTrajectory.AddComponent<dinamicCoordinates>();
+        objEnemyTrajectory.name = "Enemy Trajectory";
+
         for(int i=0; i<enemy.trajectory.Length; i++)
         {
             var childrensOBJ = new GameObject();

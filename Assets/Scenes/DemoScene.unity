@@ -424,7 +424,7 @@ Light:
   m_InnerSpotAngle: 21.802082
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 2
+    m_Type: 0
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -539,18 +539,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 1774124575}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a6dd2a36f95c27d2aeab90d4900fd48, type: 3}
+  m_Script: {fileID: 11500000, guid: 7e3f17dacea27f185a40ac5e025be189, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   move: 0
-  playerVelocity: 15
+  playerVelocity: 85.6
   player: {fileID: 3895230770801740318, guid: 6f8d43f0a7dfb0861b009c4aef1953ff, type: 3}
-  enemyMachineGun: {fileID: 1477325924078828320, guid: 24ba45932e90495078826029667ce8b7,
+  machineGun: {fileID: 1477325924078828320, guid: 24ba45932e90495078826029667ce8b7,
     type: 3}
-  enemyVehicle: {fileID: 1624526587339162005, guid: ca4083288bdd86a4e95893eded900fbb,
-    type: 3}
-  enemiesSoldiers: {fileID: 6010868748055039576, guid: 1287979b9f52f9835b45051856dff3fc,
-    type: 3}
+  vehicle: {fileID: 1624526587339162005, guid: ca4083288bdd86a4e95893eded900fbb, type: 3}
+  soldier: {fileID: 2643584324078957708, guid: 1287979b9f52f9835b45051856dff3fc, type: 3}
   objTrajectory: {fileID: 0}
   objEnemyTrajectory: {fileID: 0}
 --- !u!4 &2238557853996636352
@@ -2148,7 +2146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cac19ac21b7f16db9867938afa747252, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objsGenerator: {fileID: 1774124575}
+  sceneBuilderGO: {fileID: 0}
   trajectory: {fileID: 0}
   vehicle: {fileID: 2238557854510382071}
   init: 0

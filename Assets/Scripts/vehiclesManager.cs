@@ -5,38 +5,36 @@ using UnityEngine;
 public class vehiclesManager : MonoBehaviour
 {
     //------------------------------------------- CONTROLS ----------------------------------------
+
     [Header("Objects")]
     public GameObject vehicleGO; // GameObject vehicle
     public GameObject LookAtGO; // GameObject LookAt
     public GameObject turretControlGO; // GameObject to control Gun
     public Transform enemyTarget; // GameObject enemy
+    
     //public Transform scape; // GameObject with coordinates to scape
     public GameObject trajectory; // path to move
     //public GameObject trigger; // test
     public GameObject _paticleSystem; // particles of shoot
-    public GameObject objsGenerator;
+    public GameObject sceneBuilderGO;
     public GameObject captTarget;
 
     [Header("Settings")]
     [Range(0, 3000)]
     public float detectionRadius; // Raio de detecção/reconhecimento
+
     [Range(0, 1800)]
     public float effectiveDistance; // Raio de distância Efetiva
-    // public enum vehicleActions // Comportamentos do veículo
-    // {
-    //     Idle,        
-    //     Vigilant,
-    //     Shoot,
-    //     Move,
-    // }
-    public objectsGenerator.Behavior recognitionAction; // select recognition action
-    public objectsGenerator.Behavior effectiveAction; // select effective action
 
-    [Range (-30,100)]
-    public float velocity; // VERIFICAR SE É NECESSÁRIO
+    public sceneBuilder.Behavior recognitionAction; // select recognition action
+    public sceneBuilder.Behavior effectiveAction; // select effective action
+
+    // [Range (-30,100)]
+    // public float velocity; // VERIFICAR SE É NECESSÁRIO
     bool moveVehicle;
     public bool explode; // explodir veículo
     public bool activeVigilant = false;
+
     public enum typeShoot // cadence shoot
     {
         Single,
@@ -44,7 +42,9 @@ public class vehiclesManager : MonoBehaviour
         Full,
     }
     public typeShoot cadenceType; // select cadence
+
     public bool shoot; // VERIFICAR SE É NECESSÁRIO
+
     public enum Shield // types of shield
     {
         Normal,
@@ -52,21 +52,24 @@ public class vehiclesManager : MonoBehaviour
         Hard,
     }
     public Shield shieldType; // Armazena enum Shield
+
     public bool externalControl; // disable manager controls and enable external controls
+
     //---------------------------------------------------------------------------------------------
+
     VehicleModel model; // Acessa script VehicleModel
     shootMAG gettingTypeShoot; // Acessa script shootMAG
     LookAtGun captGunbools; // capt Shoot bool from Gun_Jeep
     DetectTarget detection; // aponta para variável com distância do inimigo no script DetectTarget
     TurretControl _TurretControl;
     vehicle_Explode gettingExplosion;
-    objectsGenerator.Behavior currentState;
-    objectsGenerator _objsGenerator;
+    sceneBuilder.Behavior currentState;
+    sceneBuilder _sceneBuilder;
 
-    // to manage Shield in shieldManager
     public bool normal_shield;
     public bool medium_shield;
     public bool hard_shield;
+
     void chooseShield()
     {
         switch(shieldType)
@@ -91,6 +94,7 @@ public class vehiclesManager : MonoBehaviour
         // Debug.Log(" manager _hard_shield " + hard_shield);
     }
     int cadenceTypeShoot;
+
     void opTypeShoot(bool flag) // cadence Shoot
     {
         //Debug.Log("SHOOTING");
@@ -109,6 +113,7 @@ public class vehiclesManager : MonoBehaviour
         gettingTypeShoot.animator.SetBool("isShooting", flag);
         gettingTypeShoot.animator.SetInteger("opType", cadenceTypeShoot); // insere valor inteiro na variável opType no componente Animator de shootMAG
     }
+
     void Start()
     {
         externalControl = false;
@@ -119,18 +124,18 @@ public class vehiclesManager : MonoBehaviour
         model = vehicleGO.GetComponent<VehicleModel>();
         captGunbools = LookAtGO.GetComponent<LookAtGun>();
         detection = vehicleGO.GetComponent<DetectTarget>();
-        _TurretControl = turretControlGO.GetComponent<TurretControl>();
         gettingTypeShoot = _paticleSystem.GetComponent<shootMAG>();
         gettingExplosion = vehicleGO.GetComponent<vehicle_Explode>();
+        _TurretControl = turretControlGO.GetComponent<TurretControl>();    
 
-        objsGenerator = GameObject.Find("Builder");
-        _objsGenerator = objsGenerator.GetComponent<objectsGenerator>();
+        sceneBuilderGO = GameObject.Find("Builder");
+        _sceneBuilder = sceneBuilderGO.GetComponent<sceneBuilder>();
 
         captTarget = GameObject.Find("Player");		
         enemyTarget = captTarget.transform;
 
         detection.enemiesTag = enemyTarget.tag; // passa a tag do GameObject enemyTarget para a string "enemiesTag" do script DetectTarget
-        currentState = objectsGenerator.Behavior.Vigilant; // vehicle start in Vigilant
+        currentState = sceneBuilder.Behavior.Vigilant; // vehicle start in Vigilant
 
         enemyTrajectory();
         
@@ -138,19 +143,17 @@ public class vehiclesManager : MonoBehaviour
         if (trajectory != null) 
             model.SetTrajectory(new GameObjectWrapper(trajectory));
     }
+
     void Update()
     {
-        //chooseShield(); // test
-
         vehicleBehavior();        
-
-        //Debug.Log("move vehicle " + moveVehicle);
 
         // Explode vehicle
         if(explode == true)
         {
             gettingExplosion.explodeBool = explode;
         }
+
         // //External Turret Controls
         if(externalControl == true)
         {
@@ -164,36 +167,34 @@ public class vehiclesManager : MonoBehaviour
         //Debug.Log("currentState = " + currentState);
         switch(currentState)
         {
-            case objectsGenerator.Behavior.Vigilant:
-                // rotate turret - find enemy
+            case sceneBuilder.Behavior.Vigilant:
                 _TurretControl.activeVigilant = true;
                 //Debug.Log("VIGILANT");
             break;
-            case objectsGenerator.Behavior.Move:
-                // move vehicle
+            case sceneBuilder.Behavior.Move:
                 moveVehicle = true;
                 //Debug.Log("MOVE");
             break;
-            case objectsGenerator.Behavior.Shoot:
-                // shoot weapon
+            case sceneBuilder.Behavior.Shoot:
                 opTypeShoot(true);
                 //Debug.Log("SHOOT");
             break;
-            case objectsGenerator.Behavior.Idle:
-                // stop vehicle
+            case sceneBuilder.Behavior.Idle:
                 moveVehicle = false;
                 //Debug.Log("IDLE");
             break;
             default:
-                currentState = objectsGenerator.Behavior.Vigilant;
+                currentState = sceneBuilder.Behavior.Vigilant;
             break;
         }
+
         // active drive to move vehicle
         if (moveVehicle)
             model.Drive();
         else
             model.Stop();
     }
+
     void vehicleBehavior()
     {
         // if raycast detect something
@@ -202,9 +203,10 @@ public class vehiclesManager : MonoBehaviour
             captGunbools.activeLookAt = false;
             return;
         }
+
         // Recognition Action
-        if (detection.currentDistance <= detectionRadius && 
-            detection.currentDistance > effectiveDistance)
+        if (detection.currentDistance <= detectionRadius
+        && detection.currentDistance > effectiveDistance)
         {
             captGunbools.activeLookAt = true;
             currentState = recognitionAction;
@@ -219,8 +221,8 @@ public class vehiclesManager : MonoBehaviour
             //Debug.Log("EFFECTIVE");
         }
         else
-        {   // back to Vigilant
-            currentState = objectsGenerator.Behavior.Vigilant;
+        {   
+            currentState = sceneBuilder.Behavior.Vigilant;
             //Debug.Log("DEFAULT");
             opTypeShoot(false);
         }
@@ -232,10 +234,9 @@ public class vehiclesManager : MonoBehaviour
 	}
     void enemyTrajectory()
     {
-        if(_objsGenerator.objEnemyTrajectory != null)
+        if(_sceneBuilder.objEnemyTrajectory != null)
         {
-            //print("NOT NULL ----------");
-            trajectory = _objsGenerator.objEnemyTrajectory;
+            trajectory = _sceneBuilder.objEnemyTrajectory;
         }
     }
 }
